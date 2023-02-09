@@ -1,5 +1,23 @@
 <script>
-    function login() {}
+    import { goto } from "$app/navigation";
+
+    const users = { u1: "123", u2: "123" };
+
+    let username = "";
+    let password = "";
+
+    async function login() {
+        if (!users[username]) {
+            console.log("User not found");
+            return;
+        }
+        if (users[username] === password) {
+            await goto("/home");
+        } else {
+            alert("Wrong password");
+        }
+    }
+
     let imgPicker = {
         1: "assets/pink.png",
         2: "assets/plant.jpg",
@@ -39,6 +57,7 @@
                         name="name-field"
                         id="name-field"
                         placeholder="Name"
+                        bind:value={username}
                     />
                     <input
                         class="inp-f"
@@ -46,6 +65,7 @@
                         name="secret-field"
                         id="secret-field"
                         placeholder="Secret"
+                        bind:value={password}
                     />
                 </div>
             </div>
