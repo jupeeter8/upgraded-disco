@@ -1,67 +1,89 @@
 <script>
+    import { Translate } from "../../Translate";
+    let state;
+    const mainColour = localStorage.getItem("colour");
+    let text = "";
+    function translateToMorse() {
+        let trans = new Translate();
+        text = trans.toMorse(text);
+    }
+
+    function translateToEnglish() {
+        let trans = new Translate();
+        text = trans.toEnglish(text);
+    }
+
+    function btn_state() {
+        if (state.textContent === "._") {
+            state.textContent = "abc";
+            translateToMorse();
+        } else {
+            state.textContent = "._";
+            translateToEnglish();
+        }
+    }
 </script>
 
-<body>
+<div
+    class="body"
+    style="--main-accent-color: {mainColour}; --sec-accent-color: {mainColour +
+        '80'};"
+>
     <div class="header">
         <h1>MOORSEE</h1>
         <p>.._ _. _.. . ._. ._.. .. _. .</p>
     </div>
     <div class="spacer" />
     <div class="container">
-        <div
-            id="editor"
-            contenteditable="true"
-            default-text="true"
-            oninput="checkPlaceholder()"
-        />
+        <div id="editor" contenteditable="true" bind:textContent={text} />
         <div class="buttons">
-            <div class="editor-btn">abc</div>
-            <div class="editor-btn">dot</div>
-            <div class="editor-btn">dash</div>
-            <div class="editor-btn">change</div>
+            <button class="editor-btn" on:click={btn_state} bind:this={state}
+                >._</button
+            >
+            <button class="editor-btn">dot</button>
+            <button class="editor-btn">dash</button>
+            <button class="editor-btn">change</button>
         </div>
     </div>
 
     <div class="nav">
-        <div class="nav-btn">home</div>
-        <div class="nav-btn">about</div>
-        <div class="nav-btn">contact</div>
+        <div class="nav-btn">
+            <span class="material-symbols-outlined">
+                radio_button_checked
+            </span>
+        </div>
+        <div class="nav-btn">
+            <span class="material-symbols-outlined"> view_kanban </span>
+        </div>
+        <div class="nav-btn">
+            <span class="material-symbols-outlined"> inbox </span>
+        </div>
     </div>
-</body>
+</div>
 
-<!-- <script>
-    function checkPlaceholder() {
-        // if (document.getElementById("editor").innerHTML === "") {
-        //     document.getElementById("editor").innerHTML = "Placeholder Text";
-        // }
-        document.getElementById("editor").setAttribute("default-text", "false");
-    }
-    checkPlaceholder()
-</script> -->
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
-    :root {
+    /* :root {
         --main-bg-color: #f2f2ed;
-        --main-accent-color: #d43d7950;
+        --main-accent-color: #d43d7970;
         --secondary-tet-color: rgb(98, 98, 98);
         --test-colours: #dfdfdfc0;
-    }
+    } */
 
-    body {
+    .body {
         background-color: var(--main-bg-color);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        margin: 0px;
     }
 
     .header {
         font-family: "VT323", monospace;
-        /* width: 100vw; */
         padding-left: 125px;
         padding-top: 3rem;
         font-size: 16px;
-        /* background: var(--test-colours); */
     }
 
     .header h1 {
@@ -78,15 +100,12 @@
 
     .container {
         display: flex;
-        /* flex-grow: 1; */
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /* height: 100vh; */
         width: 64vw;
         margin-left: auto;
         margin-right: auto;
-        /* margin-top: auto; */
     }
 
     .buttons {
@@ -98,17 +117,12 @@
     }
 
     .editor-btn {
-        /* margin-right: 1rem;
-        margin-left: 1rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem; */
         padding: 0.5rem;
-        /* border: 1px solid var(--main-accent-color); */
         border-radius: 5px;
-        /* background: var(--test-colours); */
         font-family: "VT323", monospace;
         font-size: 1.5em;
         color: var(--main-accent-color);
+        background: none;
     }
 
     #editor {
@@ -124,26 +138,35 @@
         margin-bottom: 1.5rem;
         font-family: "VT323", monospace;
         padding: 0.5rem;
-        font-size: 1.25em;
-        border: 2px dashed black;
+        font-size: 1.5em;
+        border: 2.5px dashed black;
         border-radius: 0.5rem;
         outline: 0px;
     }
 
     #editor:hover {
-        border: 2px dashed var(--main-accent-color);
+        border: 2.5px dashed var(--main-accent-color);
     }
     #editor:focus {
-        border: 2px dashed var(--main-accent-color);
+        border: 2.5px dashed var(--main-accent-color);
     }
     .nav {
         display: flex;
         justify-content: space-around;
-        width: 50%;
+        align-items: center;
+        width: 40%;
+        padding-top: 1.5rem;
         margin-left: auto;
         margin-right: auto;
+        flex-grow: 1;
+        color: var(--sec-accent-color);
     }
     .spacer {
         height: 150px;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+        color: var(--sec-accent-color);
     }
 </style>

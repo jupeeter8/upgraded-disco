@@ -33,6 +33,7 @@
     const choice = Math.floor(Math.random() * 3) + 1;
     const image = imgPicker[choice];
     const colour = colorPicker[choice];
+    localStorage.setItem("colour", colour);
 </script>
 
 <body style="--main-accent-color: {colour}">
