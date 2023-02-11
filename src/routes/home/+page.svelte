@@ -1,8 +1,10 @@
 <script>
     import { Translate } from "../../Translate";
-    let state;
     const mainColour = localStorage.getItem("colour");
+
+    let state;
     let text = "";
+
     function translateToMorse() {
         let trans = new Translate();
         text = trans.toMorse(text);
@@ -14,12 +16,26 @@
     }
 
     function btn_state() {
-        if (state.textContent === "._") {
+        if (state.textContent === "._.") {
             state.textContent = "abc";
             translateToMorse();
         } else {
-            state.textContent = "._";
+            state.textContent = "._.";
             translateToEnglish();
+        }
+    }
+    function handleKey(event) {
+        console.log("key pressed");
+        if (state.textContent === "abc") {
+            console.log(text);
+            if (event.key === "b") {
+                text += ".";
+            }
+            if (event.key === "h") {
+                text += "_";
+            }
+        } else {
+            console.log("text: ", text);
         }
     }
 </script>
@@ -35,10 +51,15 @@
     </div>
     <div class="spacer" />
     <div class="container">
-        <div id="editor" contenteditable="true" bind:textContent={text} />
+        <div
+            id="editor"
+            contenteditable="true"
+            bind:textContent={text}
+            on:keydown={handleKey}
+        />
         <div class="buttons">
             <button class="editor-btn" on:click={btn_state} bind:this={state}
-                >._</button
+                >._.</button
             >
             <button class="editor-btn">dot</button>
             <button class="editor-btn">dash</button>
