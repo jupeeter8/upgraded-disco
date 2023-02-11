@@ -4,38 +4,43 @@
 
     let state;
     let text = "";
+    let trans = new Translate();
 
     function translateToMorse() {
-        let trans = new Translate();
         text = trans.toMorse(text);
     }
 
     function translateToEnglish() {
-        let trans = new Translate();
         text = trans.toEnglish(text);
     }
 
     function btn_state() {
         if (state.textContent === "._.") {
-            state.textContent = "abc";
+            if (text === "") {
+                text = "";
+                state.textContent = "abc";
+                return;
+            }
+            text = trans.checkDataEnglish(text);
             translateToMorse();
+            state.textContent = "abc";
         } else {
+            if (text === "") {
+                text = "";
+                state.textContent = "._.";
+                return;
+            }
             state.textContent = "._.";
+            text = trans.checkDataMorse(text);
             translateToEnglish();
         }
     }
-    function handleKey(event) {
-        console.log("key pressed");
+    function handlKeypress(event) {
         if (state.textContent === "abc") {
-            console.log(text);
-            if (event.key === "b") {
-                text += ".";
+            // check if space is pressed
+            if (event.keyCode === 32) {
+                console.log("space");
             }
-            if (event.key === "h") {
-                text += "_";
-            }
-        } else {
-            console.log("text: ", text);
         }
     }
 </script>
@@ -54,8 +59,8 @@
         <div
             id="editor"
             contenteditable="true"
+            on:keypress={handlKeypress}
             bind:textContent={text}
-            on:keydown={handleKey}
         />
         <div class="buttons">
             <button class="editor-btn" on:click={btn_state} bind:this={state}
@@ -84,13 +89,6 @@
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
-
-    /* :root {
-        --main-bg-color: #f2f2ed;
-        --main-accent-color: #d43d7970;
-        --secondary-tet-color: rgb(98, 98, 98);
-        --test-colours: #dfdfdfc0;
-    } */
 
     .body {
         background-color: var(--main-bg-color);
