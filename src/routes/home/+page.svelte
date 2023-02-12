@@ -6,6 +6,7 @@
     let text = "";
     let trans = new Translate();
     let space = 0;
+    let edtDiv;
 
     function translateToMorse() {
         text = trans.toMorse(text);
@@ -20,15 +21,16 @@
         if (state.textContent === "english") {
             (edtDiv.style.fontFamily = "VT323"), "monospace";
             edtDiv.style.fontSize = "1.5em";
+            state.textContent = "morse";
 
             if (text === "") {
                 text = "";
-                state.textContent = "morse";
+                edtDiv.setAttribute("contenteditable", false);
                 return;
             }
 
             text = trans.checkDataEnglish(text);
-            state.textContent = "morse";
+            edtDiv.setAttribute("contenteditable", false);
             translateToMorse();
         } else {
             (edtDiv.style.fontFamily = "Sacramento"), "cursive";
@@ -36,10 +38,12 @@
             if (text === "") {
                 text = "";
                 state.textContent = "english";
+                edtDiv.setAttribute("contenteditable", true);
                 return;
             }
             text = trans.checkDataMorse(text);
             state.textContent = "english";
+            edtDiv.setAttribute("contenteditable", true);
             translateToEnglish();
         }
     }
@@ -78,7 +82,12 @@
     </div>
     <div class="spacer" />
     <div class="container">
-        <div id="editor" contenteditable="true" bind:innerHTML={text} />
+        <div
+            id="editor"
+            contenteditable
+            bind:innerHTML={text}
+            bind:this={edtDiv}
+        />
         <div class="buttons">
             <button class="editor-btn" on:click={btn_state} bind:this={state}
                 >english</button
@@ -161,6 +170,11 @@
         font-size: 1.5em;
         color: var(--main-accent-color);
         background: none;
+    }
+
+    .editor-btn:hover {
+        background-color: var(--sec-accent-color);
+        color: white;
     }
 
     #editor {
