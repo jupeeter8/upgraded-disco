@@ -35,6 +35,7 @@
         } else {
             (edtDiv.style.fontFamily = "Sacramento"), "cursive";
             edtDiv.style.fontSize = "2em";
+            // edtDiv.style.color = "var(--main-accent-color)";
             if (text === "") {
                 text = "";
                 state.textContent = "english";
@@ -69,12 +70,26 @@
             }
         }
     }
+    function keyInput(event) {
+        if (state.textContent === "morse") {
+            if (event.key === "f") {
+                enterMorse({ target: { textContent: "dot" } });
+            } else if (event.key === "j") {
+                enterMorse({ target: { textContent: "dash" } });
+            } else if (event.key === "g") {
+                enterMorse({ target: { textContent: "space" } });
+            } else if (event.key === "h") {
+                enterMorse({ target: { textContent: "remove" } });
+            }
+        }
+    }
 </script>
 
 <div
+    on:keypress={keyInput}
     class="body"
     style="--main-accent-color: {mainColour}; --sec-accent-color: {mainColour +
-        '80'};"
+        '80'}; --main-grey: grey;"
 >
     <div class="header">
         <h1>MOORSEE</h1>
@@ -168,13 +183,13 @@
         border-radius: 5px;
         font-family: "VT323", monospace;
         font-size: 1.5em;
-        color: var(--main-accent-color);
+        color: var(--main-grey);
         background: none;
     }
 
     .editor-btn:hover {
         background-color: var(--sec-accent-color);
-        color: white;
+        color: black;
     }
 
     #editor {
