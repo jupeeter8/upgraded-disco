@@ -5,6 +5,7 @@
     let state;
     let text = "";
     let trans = new Translate();
+    let space = 0;
 
     function translateToMorse() {
         text = trans.toMorse(text);
@@ -15,31 +16,52 @@
     }
 
     function btn_state() {
-        if (state.textContent === "._.") {
+        navigator.clipboard.writeText(text);
+        if (state.textContent === "english") {
+            (edtDiv.style.fontFamily = "VT323"), "monospace";
+            edtDiv.style.fontSize = "1.5em";
+
             if (text === "") {
                 text = "";
-                state.textContent = "abc";
+                state.textContent = "morse";
                 return;
             }
+
             text = trans.checkDataEnglish(text);
+            state.textContent = "morse";
             translateToMorse();
-            state.textContent = "abc";
         } else {
+            (edtDiv.style.fontFamily = "Sacramento"), "cursive";
+            edtDiv.style.fontSize = "2em";
             if (text === "") {
                 text = "";
-                state.textContent = "._.";
+                state.textContent = "english";
                 return;
             }
-            state.textContent = "._.";
             text = trans.checkDataMorse(text);
+            state.textContent = "english";
             translateToEnglish();
         }
     }
-    function handlKeypress(event) {
-        if (state.textContent === "abc") {
-            // check if space is pressed
-            if (event.keyCode === 32) {
-                console.log("space");
+
+    function enterMorse(element) {
+        if (state.textContent === "morse") {
+            if (element.target.textContent === "dot") {
+                text += ".";
+                space = 0;
+            } else if (element.target.textContent === "dash") {
+                text += "_";
+                space = 0;
+            } else if (element.target.textContent === "space") {
+                if (space === 0) {
+                    text += " ";
+                    space = 1;
+                } else if (space === 1) {
+                    text += "/ ";
+                    space = 0;
+                }
+            } else {
+                text = text.slice(0, -1);
             }
         }
     }
@@ -56,19 +78,15 @@
     </div>
     <div class="spacer" />
     <div class="container">
-        <div
-            id="editor"
-            contenteditable="true"
-            on:keypress={handlKeypress}
-            bind:textContent={text}
-        />
+        <div id="editor" contenteditable="true" bind:innerHTML={text} />
         <div class="buttons">
             <button class="editor-btn" on:click={btn_state} bind:this={state}
-                >._.</button
+                >english</button
             >
-            <button class="editor-btn">dot</button>
-            <button class="editor-btn">dash</button>
-            <button class="editor-btn">change</button>
+            <button class="editor-btn" on:click={enterMorse}>dot</button>
+            <button class="editor-btn" on:click={enterMorse}>dash</button>
+            <button class="editor-btn" on:click={enterMorse}>space</button>
+            <button class="editor-btn" on:click={enterMorse}>remove</button>
         </div>
     </div>
 
@@ -130,13 +148,14 @@
     .buttons {
         display: flex;
         justify-content: space-around;
-        width: 64%;
+        width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
 
     .editor-btn {
-        padding: 0.5rem;
+        /* padding: 0.5rem; */
+        width: 98px;
         border-radius: 5px;
         font-family: "VT323", monospace;
         font-size: 1.5em;
@@ -146,7 +165,7 @@
 
     #editor {
         display: flex;
-        height: 150px;
+        height: 146px;
         width: 100%;
         flex-direction: column;
         justify-content: center;
@@ -155,9 +174,13 @@
         overflow-x: visible;
         word-wrap: break-word;
         margin-bottom: 1.5rem;
-        font-family: "VT323", monospace;
-        padding: 0.5rem;
-        font-size: 1.5em;
+        font-family: "Sacramento", cursive;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        /* font-size: 1.5em; */
+        font-size: 2em;
         border: 2.5px dashed black;
         border-radius: 0.5rem;
         outline: 0px;
