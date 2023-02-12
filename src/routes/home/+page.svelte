@@ -4,38 +4,65 @@
 
     let state;
     let text = "";
+    let trans = new Translate();
+    let space = 0;
 
     function translateToMorse() {
-        let trans = new Translate();
         text = trans.toMorse(text);
     }
 
     function translateToEnglish() {
-        let trans = new Translate();
         text = trans.toEnglish(text);
     }
 
     function btn_state() {
-        if (state.textContent === "._.") {
-            state.textContent = "abc";
+        navigator.clipboard.writeText(text);
+        if (state.textContent === "english") {
+            (edtDiv.style.fontFamily = "VT323"), "monospace";
+            edtDiv.style.fontSize = "1.5em";
+
+            if (text === "") {
+                text = "";
+                state.textContent = "morse";
+                return;
+            }
+
+            text = trans.checkDataEnglish(text);
+            state.textContent = "morse";
             translateToMorse();
         } else {
-            state.textContent = "._.";
+            (edtDiv.style.fontFamily = "Sacramento"), "cursive";
+            edtDiv.style.fontSize = "2em";
+            if (text === "") {
+                text = "";
+                state.textContent = "english";
+                return;
+            }
+            text = trans.checkDataMorse(text);
+            state.textContent = "english";
             translateToEnglish();
         }
     }
-    function handleKey(event) {
-        console.log("key pressed");
-        if (state.textContent === "abc") {
-            console.log(text);
-            if (event.key === "b") {
+
+    function enterMorse(element) {
+        if (state.textContent === "morse") {
+            if (element.target.textContent === "dot") {
                 text += ".";
-            }
-            if (event.key === "h") {
+                space = 0;
+            } else if (element.target.textContent === "dash") {
                 text += "_";
+                space = 0;
+            } else if (element.target.textContent === "space") {
+                if (space === 0) {
+                    text += " ";
+                    space = 1;
+                } else if (space === 1) {
+                    text += "/ ";
+                    space = 0;
+                }
+            } else {
+                text = text.slice(0, -1);
             }
-        } else {
-            console.log("text: ", text);
         }
     }
 </script>
@@ -51,19 +78,15 @@
     </div>
     <div class="spacer" />
     <div class="container">
-        <div
-            id="editor"
-            contenteditable="true"
-            bind:textContent={text}
-            on:keydown={handleKey}
-        />
+        <div id="editor" contenteditable="true" bind:innerHTML={text} />
         <div class="buttons">
             <button class="editor-btn" on:click={btn_state} bind:this={state}
-                >._.</button
+                >english</button
             >
-            <button class="editor-btn">dot</button>
-            <button class="editor-btn">dash</button>
-            <button class="editor-btn">change</button>
+            <button class="editor-btn" on:click={enterMorse}>dot</button>
+            <button class="editor-btn" on:click={enterMorse}>dash</button>
+            <button class="editor-btn" on:click={enterMorse}>space</button>
+            <button class="editor-btn" on:click={enterMorse}>remove</button>
         </div>
     </div>
 
@@ -84,13 +107,6 @@
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
-
-    /* :root {
-        --main-bg-color: #f2f2ed;
-        --main-accent-color: #d43d7970;
-        --secondary-tet-color: rgb(98, 98, 98);
-        --test-colours: #dfdfdfc0;
-    } */
 
     .body {
         background-color: var(--main-bg-color);
@@ -132,13 +148,14 @@
     .buttons {
         display: flex;
         justify-content: space-around;
-        width: 64%;
+        width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
 
     .editor-btn {
-        padding: 0.5rem;
+        /* padding: 0.5rem; */
+        width: 98px;
         border-radius: 5px;
         font-family: "VT323", monospace;
         font-size: 1.5em;
@@ -148,7 +165,7 @@
 
     #editor {
         display: flex;
-        height: 150px;
+        height: 146px;
         width: 100%;
         flex-direction: column;
         justify-content: center;
@@ -157,9 +174,13 @@
         overflow-x: visible;
         word-wrap: break-word;
         margin-bottom: 1.5rem;
-        font-family: "VT323", monospace;
-        padding: 0.5rem;
-        font-size: 1.5em;
+        font-family: "Sacramento", cursive;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        /* font-size: 1.5em; */
+        font-size: 2em;
         border: 2.5px dashed black;
         border-radius: 0.5rem;
         outline: 0px;

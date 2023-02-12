@@ -53,5 +53,36 @@ export class Translate {
         return english
     }
 
+    checkDataEnglish(text: string) {
+        // check if text contains only a-z, 0-9, ?, ! space and no extra spaces
+        text = text.replace(/[^a-z0-9!? ]/gi, '');
+        text = text.replace(/\s+/g, ' ');
+
+        return text
+    }
+
+    checkDataMorse(text: string) {
+        text = text.replace(/\./g, '0').replace(/_/g, '1')
+        text = text.replace(/\s+/g, ' ');
+        if (text[text.length - 1] === ' ') {
+            text = text.slice(0, -1);
+
+        }
+        text = text.replace(/\/{2,}/g, '/');
+        let morse = text.split(' ');
+
+        for (let i = 0; i < morse.length; i++) {
+            if (morse[i] in this.MORSE) {
+                continue
+            } else {
+                morse.splice(i, 1);
+            }
+        }
+
+        text = morse.join(' ');
+        text = text.replace(/\/{2,}/g, '/');
+        return text
+
+    }
 }
 
