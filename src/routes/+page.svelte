@@ -12,7 +12,7 @@
     });
 
     const login = async () => {
-        const user = await emailLogin(username, password);
+        const user = await emailLogin(username + "@example.com", password);
         if (user) {
             goto("/home");
         } else {
@@ -87,6 +87,11 @@
         --main-bg-color: #f2f2ed;
         /* --main-accent-color: #ffffff; */
         --secondary-tet-color: rgb(98, 98, 98);
+    }
+
+    :global(body) {
+        margin: 0;
+        padding: 0;
     }
 
     * {

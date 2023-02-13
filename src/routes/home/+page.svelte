@@ -133,6 +133,10 @@
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+    :global(body) {
+        margin: 0;
+        padding: 0;
+    }
 
     .body {
         background-color: var(--main-bg-color);
