@@ -1,4 +1,8 @@
 <script>
+    import { auth } from "../firebase";
+    function logout() {
+        auth.signOut();
+    }
 </script>
 
 <div class="nav">
@@ -9,7 +13,9 @@
             </span>
         </div>
         <div class="nav-btn">
-            <span class="material-symbols-outlined"> view_kanban </span>
+            <span class="material-symbols-outlined" on:click={logout}>
+                view_kanban
+            </span>
         </div>
         <div class="nav-btn">
             <span class="material-symbols-outlined"> inbox </span>
