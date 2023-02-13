@@ -55,6 +55,12 @@ export class Translate {
 
     checkDataEnglish(text: string) {
         // check if text contains only a-z, 0-9, ?, ! space and no extra spaces
+        // remove "&lt;br&gt;"
+        // remove <div> and </div>
+        text = text.replace(/<div>/g, '').replace(/<\/div>/g, ' ');
+        text = text.toLowerCase();
+        text = text.replace(/&lt;br&gt;/g, '');
+        text = text.replace(/<br>/g, '');
         text = text.replace(/[^a-z0-9!? ]/gi, '');
         text = text.replace(/\s+/g, ' ');
 
