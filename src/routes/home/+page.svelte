@@ -2,7 +2,15 @@
     import { Translate } from "../../Translate";
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
+    import { onAuthStateChange } from "../../firebase";
+    import { goto } from "$app/navigation";
     const mainColour = localStorage.getItem("colour");
+
+    onAuthStateChange((user) => {
+        if (!user) {
+            goto("/");
+        }
+    });
 
     let state;
     let text = "write something here";
