@@ -1,23 +1,24 @@
 <script>
     import { goto } from "$app/navigation";
-
-    const users = { u1: "123", u2: "123" };
+    import { emailLogin, onAuthStateChange } from "../firebase";
 
     let username = "";
     let password = "";
 
-    async function login() {
-        if (!users[username]) {
-            console.log("User not found");
-            return;
+    onAuthStateChange((user) => {
+        if (user) {
+            goto("/home");
         }
-        if (users[username] === password) {
-            await goto("/home");
-        } else {
-            alert("Wrong password");
-        }
-    }
+    });
 
+    const login = async () => {
+        const user = await emailLogin(username, password);
+        if (user) {
+            goto("/home");
+        } else {
+            console.error("Login failed");
+        }
+    };
     let imgPicker = {
         1: "assets/pink.png",
         2: "assets/plant.jpg",

@@ -1,12 +1,28 @@
 <script>
     import { Translate } from "../../Translate";
+    import Header from "../../components/Header.svelte";
+    import Navbar from "../../components/Navbar.svelte";
+    import { onAuthStateChange } from "../../firebase";
+    import { goto } from "$app/navigation";
     const mainColour = localStorage.getItem("colour");
 
+    onAuthStateChange((user) => {
+        if (!user) {
+            goto("/");
+        }
+    });
+
     let state;
-    let text = "";
+    let text = "write something here";
     let trans = new Translate();
     let space = 0;
     let edtDiv;
+
+    function clearText() {
+        if (text === "write something here") {
+            text = "";
+        }
+    }
 
     function translateToMorse() {
         text = trans.toMorse(text);
@@ -34,7 +50,8 @@
             translateToMorse();
         } else {
             (edtDiv.style.fontFamily = "Sacramento"), "cursive";
-            edtDiv.style.fontSize = "2em";
+            edtDiv.style.fontSize = "2.25rem";
+            // edtDiv.style.color = "var(--main-accent-color)";
             if (text === "") {
                 text = "";
                 state.textContent = "english";
@@ -69,22 +86,34 @@
             }
         }
     }
+    function keyInput(event) {
+        if (state.textContent === "morse") {
+            if (event.key === "f") {
+                enterMorse({ target: { textContent: "dot" } });
+            } else if (event.key === "j") {
+                enterMorse({ target: { textContent: "dash" } });
+            } else if (event.key === "g") {
+                enterMorse({ target: { textContent: "space" } });
+            } else if (event.key === "h") {
+                enterMorse({ target: { textContent: "remove" } });
+            }
+        }
+    }
 </script>
 
 <div
+    on:keypress={keyInput}
     class="body"
     style="--main-accent-color: {mainColour}; --sec-accent-color: {mainColour +
-        '80'};"
+        '80'}; --main-grey: grey;"
 >
-    <div class="header">
-        <h1>MOORSEE</h1>
-        <p>.._ _. _.. . ._. ._.. .. _. .</p>
-    </div>
+    <Header />
     <div class="spacer" />
     <div class="container">
         <div
             id="editor"
             contenteditable
+            on:click={clearText}
             bind:innerHTML={text}
             bind:this={edtDiv}
         />
@@ -99,19 +128,7 @@
         </div>
     </div>
 
-    <div class="nav">
-        <div class="nav-btn">
-            <span class="material-symbols-outlined">
-                radio_button_checked
-            </span>
-        </div>
-        <div class="nav-btn">
-            <span class="material-symbols-outlined"> view_kanban </span>
-        </div>
-        <div class="nav-btn">
-            <span class="material-symbols-outlined"> inbox </span>
-        </div>
-    </div>
+    <Navbar />
 </div>
 
 <style>
@@ -123,25 +140,6 @@
         display: flex;
         flex-direction: column;
         margin: 0px;
-    }
-
-    .header {
-        font-family: "VT323", monospace;
-        padding-left: 125px;
-        padding-top: 3rem;
-        font-size: 16px;
-    }
-
-    .header h1 {
-        font-family: "VT323", monospace;
-        margin: 0px;
-        margin-bottom: -12px;
-    }
-
-    .header p {
-        font-family: "VT323", monospace;
-        margin: 0px;
-        font-size: 0.5em;
     }
 
     .container {
@@ -166,15 +164,17 @@
         /* padding: 0.5rem; */
         width: 98px;
         border-radius: 5px;
+        border: none;
         font-family: "VT323", monospace;
         font-size: 1.5em;
-        color: var(--main-accent-color);
+        color: var(--main-grey);
         background: none;
     }
 
     .editor-btn:hover {
         background-color: var(--sec-accent-color);
-        color: white;
+        color: black;
+        cursor: pointer;
     }
 
     #editor {
@@ -187,15 +187,15 @@
         overflow-y: scroll;
         overflow-x: visible;
         word-wrap: break-word;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2.25rem;
         font-family: "Sacramento", cursive;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
         padding-top: 2rem;
         padding-bottom: 2rem;
         /* font-size: 1.5em; */
-        font-size: 2em;
-        border: 2.5px dashed black;
+        font-size: 2.25rem;
+        /* border: 0.5px dashed var(--main-grey); */
         border-radius: 0.5rem;
         outline: 0px;
     }
@@ -206,23 +206,8 @@
     #editor:focus {
         border: 2.5px dashed var(--main-accent-color);
     }
-    .nav {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 40%;
-        padding-top: 1.5rem;
-        margin-left: auto;
-        margin-right: auto;
-        flex-grow: 1;
-        color: var(--sec-accent-color);
-    }
-    .spacer {
-        height: 150px;
-    }
 
-    .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-        color: var(--sec-accent-color);
+    .spacer {
+        height: 100px;
     }
 </style>
