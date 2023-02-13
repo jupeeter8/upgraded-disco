@@ -3,10 +3,16 @@
     const mainColour = localStorage.getItem("colour");
 
     let state;
-    let text = "";
+    let text = "write something here";
     let trans = new Translate();
     let space = 0;
     let edtDiv;
+
+    function clearText() {
+        if (text === "write something here") {
+            text = "";
+        }
+    }
 
     function translateToMorse() {
         text = trans.toMorse(text);
@@ -34,7 +40,7 @@
             translateToMorse();
         } else {
             (edtDiv.style.fontFamily = "Sacramento"), "cursive";
-            edtDiv.style.fontSize = "2em";
+            edtDiv.style.fontSize = "2.25rem";
             // edtDiv.style.color = "var(--main-accent-color)";
             if (text === "") {
                 text = "";
@@ -100,6 +106,7 @@
         <div
             id="editor"
             contenteditable
+            on:click={clearText}
             bind:innerHTML={text}
             bind:this={edtDiv}
         />
@@ -181,6 +188,7 @@
         /* padding: 0.5rem; */
         width: 98px;
         border-radius: 5px;
+        border: none;
         font-family: "VT323", monospace;
         font-size: 1.5em;
         color: var(--main-grey);
@@ -190,6 +198,7 @@
     .editor-btn:hover {
         background-color: var(--sec-accent-color);
         color: black;
+        cursor: pointer;
     }
 
     #editor {
@@ -209,8 +218,8 @@
         padding-top: 2rem;
         padding-bottom: 2rem;
         /* font-size: 1.5em; */
-        font-size: 2em;
-        border: 2.5px dashed black;
+        font-size: 2.25rem;
+        /* border: 0.5px dashed var(--main-grey); */
         border-radius: 0.5rem;
         outline: 0px;
     }
