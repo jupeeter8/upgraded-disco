@@ -1,5 +1,7 @@
 <script>
     import { Translate } from "../../Translate";
+    import Header from "../../components/Header.svelte";
+    import Navbar from "../../components/Navbar.svelte";
     const mainColour = localStorage.getItem("colour");
 
     let state;
@@ -97,10 +99,7 @@
     style="--main-accent-color: {mainColour}; --sec-accent-color: {mainColour +
         '80'}; --main-grey: grey;"
 >
-    <div class="header">
-        <h1>MOORSEE</h1>
-        <p>.._ _. _.. . ._. ._.. .. _. .</p>
-    </div>
+    <Header />
     <div class="spacer" />
     <div class="container">
         <div
@@ -121,19 +120,7 @@
         </div>
     </div>
 
-    <div class="nav">
-        <div class="nav-btn">
-            <span class="material-symbols-outlined">
-                radio_button_checked
-            </span>
-        </div>
-        <div class="nav-btn">
-            <span class="material-symbols-outlined"> view_kanban </span>
-        </div>
-        <div class="nav-btn">
-            <span class="material-symbols-outlined"> inbox </span>
-        </div>
-    </div>
+    <Navbar />
 </div>
 
 <style>
@@ -145,25 +132,6 @@
         display: flex;
         flex-direction: column;
         margin: 0px;
-    }
-
-    .header {
-        font-family: "VT323", monospace;
-        padding-left: 125px;
-        padding-top: 3rem;
-        font-size: 16px;
-    }
-
-    .header h1 {
-        font-family: "VT323", monospace;
-        margin: 0px;
-        margin-bottom: -12px;
-    }
-
-    .header p {
-        font-family: "VT323", monospace;
-        margin: 0px;
-        font-size: 0.5em;
     }
 
     .container {
@@ -230,23 +198,8 @@
     #editor:focus {
         border: 2.5px dashed var(--main-accent-color);
     }
-    .nav {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 40%;
-        padding-top: 1.5rem;
-        margin-left: auto;
-        margin-right: auto;
-        flex-grow: 1;
-        color: var(--sec-accent-color);
-    }
+
     .spacer {
         height: 120px;
-    }
-
-    .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-        color: var(--sec-accent-color);
     }
 </style>
