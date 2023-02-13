@@ -12,7 +12,7 @@
     });
 
     const login = async () => {
-        const user = await emailLogin(username, password);
+        const user = await emailLogin(username + "@example.com", password);
         if (user) {
             goto("/home");
         } else {
