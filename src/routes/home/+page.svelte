@@ -202,7 +202,7 @@
         overflow-y: scroll;
         overflow-x: visible;
         word-wrap: break-word;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         font-family: "Sacramento", cursive;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
@@ -233,7 +233,7 @@
         color: var(--sec-accent-color);
     }
     .spacer {
-        height: 150px;
+        height: 120px;
     }
 
     .material-symbols-outlined {
