@@ -1,14 +1,14 @@
 <script>
+    export let message;
 </script>
 
 <div class="msg-f">
     <div class="icn" />
     <div class="msg-content">
-        Lorem Ipsum nice guchi hello amoug us Lorem Ipsum nice guchi hello amoug
-        us
+        {message.text}
     </div>
     <div class="icn-sq" />
-    <div class="date">Feb 12 23</div>
+    <div class="date">{message.date}</div>
 </div>
 
 <style>
@@ -36,9 +36,9 @@
         height: 0.5rem;
         border-radius: 50%;
         margin-right: 0.75em;
-        background-color: var(--main-accent-color);
         font-weight: bold;
         margin-left: 2em;
+        background-color: var(--main-accent-color);
     }
     .icn-sq {
         width: 0.4rem;
