@@ -89,6 +89,11 @@
         --secondary-tet-color: rgb(98, 98, 98);
     }
 
+    :global(body) {
+        margin: 0;
+        padding: 0;
+    }
+
     * {
         margin: 0;
         padding: 0;
