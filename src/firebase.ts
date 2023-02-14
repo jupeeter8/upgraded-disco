@@ -19,15 +19,20 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export async function emailLogin(username, password) {
-    await signInWithEmailAndPassword(auth, username, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        });
+    try {
+
+        const userCredential = await signInWithEmailAndPassword(auth, username, password)
+        const user = userCredential.user;
+    }
+    catch (error) {
+
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+    }
+
+    //     .catch ((error) => {
+    // });
     if (auth.currentUser) {
         return auth.currentUser;
     }
@@ -38,3 +43,5 @@ export function onAuthStateChange(callback) {
         callback(user);
     });
 }
+
+export { onAuthStateChanged }
