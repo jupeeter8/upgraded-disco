@@ -1,8 +1,10 @@
 <script>
+    import { goto } from "$app/navigation";
     import { auth } from "../firebase";
     function logout() {
         auth.signOut();
     }
+    const inbox = () => goto("/inbox");
 </script>
 
 <div class="nav">
@@ -13,12 +15,22 @@
             </span>
         </div>
         <div class="nav-btn">
-            <span class="material-symbols-outlined" on:click={logout}>
+            <span
+                class="material-symbols-outlined"
+                on:click={logout}
+                on:keypress={() => {}}
+            >
                 view_kanban
             </span>
         </div>
         <div class="nav-btn">
-            <span class="material-symbols-outlined"> inbox </span>
+            <span
+                class="material-symbols-outlined"
+                on:click={inbox}
+                on:keypress={() => {}}
+            >
+                inbox
+            </span>
         </div>
     </div>
 </div>
