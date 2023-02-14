@@ -72,7 +72,12 @@
                 </div>
             </div>
             <div class="img-holder">
-                <img src={image} alt="pink" on:click={login} />
+                <img
+                    src={image}
+                    alt="pink"
+                    on:click={login}
+                    on:keypress={() => {}}
+                />
 
                 <p>Picture by peron person</p>
             </div>
