@@ -15,7 +15,7 @@ const firebaseConfig = {
     messagingSenderId: "159329004623",
     appId: "1:159329004623:web:67a50ffbf28fa8d9260e3a",
 };
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export async function emailLogin(username, password) {
@@ -43,5 +43,3 @@ export function onAuthStateChange(callback) {
         callback(user);
     });
 }
-
-export { onAuthStateChanged }
