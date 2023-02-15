@@ -8,12 +8,16 @@
     onAuthStateChange((user) => {
         if (user) {
             goto("/home");
+        } else {
+            console.log("No User");
         }
     });
 
     const login = async () => {
         const user = await emailLogin(username + "@example.com", password);
         if (user) {
+            localStorage.setItem("user", user.uid);
+            localStorage.setItem("loginTime", Date.now());
             goto("/home");
         } else {
             console.error("Login failed");
