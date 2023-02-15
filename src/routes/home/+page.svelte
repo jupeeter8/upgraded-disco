@@ -3,6 +3,7 @@
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
     import { onAuthStateChange } from "../../firebase";
+    import { doc, getDoc, db, collection, setDoc } from "../../messages";
     import { goto } from "$app/navigation";
     const mainColour = localStorage.getItem("colour");
 
@@ -99,6 +100,32 @@
             }
         }
     }
+    async function sendMessage() {
+        let message = text;
+        const UserID = localStorage.getItem("user");
+        if (state.textContent === "morse") {
+            message = trans.toEnglish(message);
+        }
+        message = trans.checkDataEnglish(message);
+        message = {
+            message: message,
+            Date: new Date(new Date().getTime()),
+        };
+        if (localStorage.getItem("reciverID") === null) {
+            const docRef = doc(db, "users", UserID);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                this.data = docSnap.data();
+                localStorage.setItem("reciverID", this.data.bhu1);
+                console.log("run");
+            }
+        }
+        const reciverID = localStorage.getItem("reciverID");
+        const collectionRef = collection(db, "users", reciverID, "messages");
+
+        await setDoc(doc(collectionRef), message);
+        text = "";
+    }
 </script>
 
 <div
@@ -125,6 +152,7 @@
             <button class="editor-btn" on:click={enterMorse}>dash</button>
             <button class="editor-btn" on:click={enterMorse}>space</button>
             <button class="editor-btn" on:click={enterMorse}>remove</button>
+            <button class="editor-btn" on:click={sendMessage}>send</button>
         </div>
     </div>
 
