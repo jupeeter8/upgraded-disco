@@ -110,6 +110,7 @@
         let message = text;
         const UserID = localStorage.getItem("user");
         if (state.textContent === "morse") {
+            message = trans.checkDataMorse(message);
             message = trans.toEnglish(message);
         }
         message = trans.checkDataEnglish(message);
@@ -163,6 +164,8 @@
 
     <Navbar />
 </div>
+
+<pre>{text}</pre>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
