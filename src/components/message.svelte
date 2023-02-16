@@ -1,12 +1,19 @@
 <script>
     export let message;
+    export let mode;
 </script>
 
 <div class="msg-f">
     <div class="icn" />
-    <div class="msg-content">
-        {message.text}
-    </div>
+    {#if mode === false}
+        <div class="msg-content" style="font-Family: VT323, monospace">
+            <p>{message.text}</p>
+        </div>
+    {:else}
+        <div class="msg-content" style="font-Family: Sacramento, cursive">
+            <p>{message.text}</p>
+        </div>
+    {/if}
     <div class="icn-sq" />
     <div class="date">{message.date}</div>
 </div>
@@ -23,10 +30,17 @@
     }
     .msg-content {
         padding-left: 0.2em;
-        padding-right: 0.2em;
-        font-family: "Sacramento", cursive;
+        /* padding-right: 0.2em; */
+        /* font-family: "Sacramento", cursive; */
         font-size: 1.75rem;
-        width: 75%;
+        margin-right: 10px;
+        width: 60%;
+    }
+
+    .msg-content p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        height: 1.5em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -45,7 +59,7 @@
         height: 0.4rem;
         border-radius: 2px;
         background-color: black;
-        margin-left: 1.5em;
+        margin-left: 4.5em;
         margin-right: 0.8em;
         font-weight: bold;
     }

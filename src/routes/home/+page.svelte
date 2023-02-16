@@ -15,7 +15,10 @@
 
     onAuthStateChange((user) => {
         if (!user) {
+            localStorage.clear();
             goto("/");
+        } else {
+            localStorage.setItem("user", user.uid);
         }
     });
 
@@ -110,12 +113,14 @@
         let message = text;
         const UserID = localStorage.getItem("user");
         if (state.textContent === "morse") {
+            message = trans.checkDataMorse(message);
             message = trans.toEnglish(message);
         }
         message = trans.checkDataEnglish(message);
+        const time = new Date().getTime();
         message = {
             message: message,
-            Date: new Date(new Date().getTime()),
+            Date: time,
         };
         if (localStorage.getItem("reciverID") === null) {
             const docRef = doc(db, "users", UserID);
@@ -128,7 +133,7 @@
         const reciverID = localStorage.getItem("reciverID");
         const collectionRef = collection(db, "users", reciverID, "messages");
 
-        await setDoc(doc(collectionRef), message);
+        await setDoc(doc(collectionRef, String(time)), message);
         text = "";
     }
 </script>
@@ -163,6 +168,8 @@
 
     <Navbar />
 </div>
+
+<pre>{text}</pre>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
