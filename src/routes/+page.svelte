@@ -1,6 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
-    import { emailLogin, onAuthStateChange } from "../firebase";
+    import { emailLogin, onAuthStateChange } from "../service/firebase";
 
     let username = "";
     let password = "";

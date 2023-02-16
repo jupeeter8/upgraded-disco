@@ -1,6 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
-    import { logout } from "../firebase";
+    import { logout } from "../service/firebase";
 
     const signOut = async () => {
         await logout();
