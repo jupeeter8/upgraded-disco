@@ -4,20 +4,8 @@
 
     let username = "";
     let password = "";
-
-    let imgPicker = {
-        1: "assets/pink.png",
-        2: "assets/plant.jpg",
-        3: "assets/yellow.png",
-    };
-    let colorPicker = {
-        1: "#d43d79",
-        2: "#238940",
-        3: "#BB7527",
-    };
-    const choice = Math.floor(Math.random() * 3) + 1;
-    const image = imgPicker[choice];
-    const colour = colorPicker[choice];
+    const image = "assets/paintings/woman.png";
+    const colour = "#A68F1C";
 
     onAuthStateChange((user) => {
         if (user) {
