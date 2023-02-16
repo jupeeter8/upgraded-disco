@@ -1,9 +1,23 @@
 <script>
     import { goto } from "$app/navigation";
-    import { emailLogin, onAuthStateChange } from "../firebase";
+    import { emailLogin, onAuthStateChange } from "../service/firebase";
 
     let username = "";
     let password = "";
+
+    let imgPicker = {
+        1: "assets/pink.png",
+        2: "assets/plant.jpg",
+        3: "assets/yellow.png",
+    };
+    let colorPicker = {
+        1: "#d43d79",
+        2: "#238940",
+        3: "#BB7527",
+    };
+    const choice = Math.floor(Math.random() * 3) + 1;
+    const image = imgPicker[choice];
+    const colour = colorPicker[choice];
 
     onAuthStateChange((user) => {
         if (user) {
@@ -12,33 +26,18 @@
             console.log("No User");
         }
     });
-
     const login = async () => {
         const user = await emailLogin(username + "@example.com", password);
         if (user) {
+            localStorage.clear();
             localStorage.setItem("user", user.uid);
             localStorage.setItem("loginTime", Date.now());
+            localStorage.setItem("colour", colour);
             goto("/home");
         } else {
             console.error("Login failed");
         }
     };
-    let imgPicker = {
-        1: "assets/pink.png",
-        2: "assets/plant.jpg",
-        3: "assets/yellow.png",
-    };
-
-    let colorPicker = {
-        1: "#d43d79",
-        2: "#238940",
-        3: "#BB7527",
-    };
-
-    const choice = Math.floor(Math.random() * 3) + 1;
-    const image = imgPicker[choice];
-    const colour = colorPicker[choice];
-    localStorage.setItem("colour", colour);
 </script>
 
 <body style="--main-accent-color: {colour}">

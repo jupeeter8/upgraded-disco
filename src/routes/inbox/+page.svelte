@@ -2,7 +2,36 @@
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
     import Message from "../../components/message.svelte";
+    import { goto } from "$app/navigation";
+    import { db, collection, getDoc, doc } from "../../service/messages";
+    import { auth, onAuthStateChange } from "../../service/firebase";
+
+    onAuthStateChange((user) => {
+        if (!user) {
+            localStorage.removeItem("user");
+            goto("/");
+        } else {
+            localStorage.setItem("user", user.uid);
+        }
+    });
+    const user = localStorage.getItem("user");
     const mainColour = localStorage.getItem("colour");
+    const collectionRef = collection(db, "users", user, "sent");
+    const docRef = doc(db, "users", user);
+    console.log(collectionRef);
+    console.log(docRef);
+
+    const data = async () => {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    };
+    data();
+
     let messages = [
         {
             text: "Lorem Ipsum nice guchi hello amoug us",

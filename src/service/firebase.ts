@@ -43,3 +43,8 @@ export function onAuthStateChange(callback) {
         callback(user);
     });
 }
+
+export async function logout() {
+    localStorage.clear();
+    await auth.signOut();
+}

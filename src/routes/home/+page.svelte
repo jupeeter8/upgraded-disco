@@ -1,9 +1,15 @@
 <script>
-    import { Translate } from "../../Translate";
+    import { Translate } from "../../service/Translate";
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
-    import { onAuthStateChange } from "../../firebase";
-    import { doc, getDoc, db, collection, setDoc } from "../../messages";
+    import { onAuthStateChange } from "../../service/firebase";
+    import {
+        doc,
+        getDoc,
+        db,
+        collection,
+        setDoc,
+    } from "../../service/messages";
     import { goto } from "$app/navigation";
     const mainColour = localStorage.getItem("colour");
 
@@ -116,8 +122,7 @@
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 this.data = docSnap.data();
-                localStorage.setItem("reciverID", this.data.bhu1);
-                console.log("run");
+                localStorage.setItem("reciverID", this.data.rec);
             }
         }
         const reciverID = localStorage.getItem("reciverID");
