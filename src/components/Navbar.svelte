@@ -1,9 +1,10 @@
 <script>
     import { goto } from "$app/navigation";
-    import { auth } from "../firebase";
-    function logout() {
-        auth.signOut();
-    }
+    import { logout } from "../firebase";
+
+    const signOut = async () => {
+        await logout();
+    };
     const inbox = () => goto("/inbox");
 </script>
 
@@ -17,7 +18,7 @@
         <div class="nav-btn">
             <span
                 class="material-symbols-outlined"
-                on:click={logout}
+                on:click={signOut}
                 on:keypress={() => {}}
             >
                 view_kanban
