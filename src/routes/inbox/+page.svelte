@@ -9,6 +9,7 @@
         getDocs,
         query,
         orderBy,
+        onSnapshot,
     } from "../../service/messages";
     import { onAuthStateChange } from "../../service/firebase";
 
@@ -22,16 +23,17 @@
             localStorage.setItem("user", user.uid);
         }
     });
-
+    let messages = [];
     const userID = localStorage.getItem("user");
     const q = query(
         collection(db, "users", userID, "messages"),
         orderBy("Date", "desc")
     );
 
+    // onSnapshot()
+
     const getAllMessages = async () => {
         const querySnapshot = await getDocs(q);
-        const messages = [];
         querySnapshot.forEach((doc) => {
             const date = new Date(doc.data().Date);
             let data = {
@@ -42,21 +44,36 @@
         });
         return messages;
     };
-    let messages = [];
-    getAllMessages().then((data) => {
-        messages = data;
-    });
+    // I can't think of a better name because of the monstrosity of
+    // javascript. Nothing makes sense
+    function sex() {
+        getAllMessages().then((data) => {
+            messages = data;
+        });
+    }
 </script>
 
-<div class="container" style="--main-accent-color: {mainColour}">
+<div
+    class="container"
+    style="--main-accent-color: {mainColour}; --sec-a-color: {mainColour +
+        '80'}; --main-grey: grey"
+>
     <Header />
     <div class="msg-box-cnt">
-        <div class="message-box">
-            {#each messages as message}
-                <Message {message} />
-            {/each}
-        </div>
+        {#if messages.length === 0}
+            <p>
+                But to me nothing - the negative, the empty is exceedingly
+                powerful.
+            </p>
+        {:else}
+            <div class="message-box">
+                {#each messages as message}
+                    <Message {message} />
+                {/each}
+            </div>
+        {/if}
     </div>
+    <center><button class="load" on:click={sex}>load</button></center>
     <Navbar />
 </div>
 
@@ -91,8 +108,34 @@
 
     .msg-box-cnt {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 58%;
+    }
+
+    .msg-box-cnt p {
+        font-family: "Sacramento", cursive;
+        font-size: 3rem;
+        letter-spacing: 0.05rem;
+        width: 50%;
+        text-align: center;
+        color: var(--sec-a-color);
+    }
+
+    .load {
+        /* padding: 0.5rem; */
+        width: 98px;
+        border-radius: 5px;
+        border: none;
+        font-family: "VT323", monospace;
+        font-size: 1.5em;
+        color: var(--main-grey);
+        background: none;
+    }
+    .load:hover {
+        background-color: var(--sec-a-color);
+        color: black;
+        cursor: pointer;
     }
 </style>
