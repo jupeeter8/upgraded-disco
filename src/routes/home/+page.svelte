@@ -234,14 +234,13 @@
         font-size: 2.25rem;
         /* border: 0.5px dashed var(--main-grey); */
         border-radius: 0.5rem;
-        outline: 0px;
     }
 
     #editor:hover {
-        border: 2.5px dashed var(--main-accent-color);
+        outline: 2.5px dashed var(--sec-accent-color);
     }
     #editor:focus {
-        border: 2.5px dashed var(--main-accent-color);
+        outline: 2.5px dashed var(--main-accent-color);
     }
 
     .spacer {
