@@ -122,8 +122,7 @@
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 this.data = docSnap.data();
-                localStorage.setItem("reciverID", this.data.bhu1);
-                console.log("run");
+                localStorage.setItem("reciverID", this.data.rec);
             }
         }
         const reciverID = localStorage.getItem("reciverID");
