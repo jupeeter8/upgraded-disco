@@ -115,7 +115,7 @@
         message = trans.checkDataEnglish(message);
         message = {
             message: message,
-            Date: new Date(new Date().getTime()),
+            Date: new Date().getTime(),
         };
         if (localStorage.getItem("reciverID") === null) {
             const docRef = doc(db, "users", UserID);
