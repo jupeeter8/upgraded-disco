@@ -15,7 +15,10 @@
 
     onAuthStateChange((user) => {
         if (!user) {
+            localStorage.clear();
             goto("/");
+        } else {
+            localStorage.setItem("user", user.uid);
         }
     });
 
@@ -114,9 +117,10 @@
             message = trans.toEnglish(message);
         }
         message = trans.checkDataEnglish(message);
+        const time = new Date().getTime();
         message = {
             message: message,
-            Date: new Date().getTime(),
+            Date: time,
         };
         if (localStorage.getItem("reciverID") === null) {
             const docRef = doc(db, "users", UserID);
@@ -129,7 +133,7 @@
         const reciverID = localStorage.getItem("reciverID");
         const collectionRef = collection(db, "users", reciverID, "messages");
 
-        await setDoc(doc(collectionRef), message);
+        await setDoc(doc(collectionRef, String(time)), message);
         text = "";
     }
 </script>
