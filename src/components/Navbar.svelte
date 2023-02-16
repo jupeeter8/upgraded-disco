@@ -6,12 +6,17 @@
         await logout();
     };
     const inbox = () => goto("/inbox");
+    const navHome = () => goto("/home");
 </script>
 
 <div class="nav">
     <div class="nav-border">
         <div class="nav-btn">
-            <span class="material-symbols-outlined">
+            <span
+                class="material-symbols-outlined"
+                on:click={navHome}
+                on:keypress={() => {}}
+            >
                 radio_button_checked
             </span>
         </div>
