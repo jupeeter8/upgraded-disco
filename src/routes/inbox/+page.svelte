@@ -111,11 +111,17 @@
         margin: 0;
         padding: 0;
     }
+    :root {
+        --main-bg-color: #f2f2ed;
+        /* --main-accent-color: #ffffff; */
+        --secondary-tet-color: rgb(98, 98, 98);
+    }
     .container {
         display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100vw;
+        background-color: var(--main-bg-color);
     }
     .message-box {
         display: flex;
