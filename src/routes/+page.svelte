@@ -1,11 +1,23 @@
 <script>
     import { goto } from "$app/navigation";
     import { emailLogin, onAuthStateChange } from "../service/firebase";
+    import {
+        changeCollection,
+        changeTheme,
+        collArray,
+        collection,
+        theme,
+    } from "../service/theme";
 
     let username = "";
     let password = "";
-    const image = "assets/paintings/woman.png";
-    const colour = "#A68F1C";
+    changeCollection();
+    changeTheme();
+    console.log(theme);
+
+    function change() {
+        changeTheme();
+    }
 
     onAuthStateChange((user) => {
         if (user) {
@@ -20,7 +32,7 @@
             localStorage.clear();
             localStorage.setItem("user", user.uid);
             localStorage.setItem("loginTime", Date.now());
-            localStorage.setItem("colour", colour);
+            localStorage.setItem("colour", theme.color);
             goto("/home");
         } else {
             console.error("Login failed");
@@ -28,7 +40,7 @@
     };
 </script>
 
-<body style="--main-accent-color: {colour}">
+<body style="--main-accent-color: {theme.color}">
     <div class="layout">
         <div class="header">
             <h1>MOORSEE</h1>
@@ -64,13 +76,17 @@
             </div>
             <div class="img-holder">
                 <img
-                    src={image}
+                    src={theme.path}
                     alt="pink"
                     on:click={login}
                     on:keypress={() => {}}
                 />
 
-                <p>Picture by peron person</p>
+                <center
+                    ><a href={theme.link}
+                        ><p>{theme.name} by {theme.artist}</p></a
+                    ></center
+                >
             </div>
         </div>
     </div>
@@ -178,7 +194,7 @@
         font-size: 1em;
         color: var(--secondary-tet-color);
         /* align this to the center of .img-holder */
-        width: 100%;
+        width: 66%;
         text-align: center;
     }
 
@@ -212,5 +228,10 @@
     .inp-f:focus {
         outline: none;
         border: 3px solid var(--main-accent-color);
+    }
+    /* open links in new tab */
+    a {
+        color: var(--secondary-tet-color);
+        text-decoration: none;
     }
 </style>
