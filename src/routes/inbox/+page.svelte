@@ -3,63 +3,49 @@
     import Navbar from "../../components/Navbar.svelte";
     import Message from "../../components/message.svelte";
     import { goto } from "$app/navigation";
-    import { db, collection, getDoc, doc } from "../../service/messages";
-    import { auth, onAuthStateChange } from "../../service/firebase";
+    import {
+        db,
+        collection,
+        getDocs,
+        query,
+        orderBy,
+    } from "../../service/messages";
+    import { onAuthStateChange } from "../../service/firebase";
+
+    const mainColour = localStorage.getItem("colour");
 
     onAuthStateChange((user) => {
         if (!user) {
-            localStorage.removeItem("user");
+            localStorage.clear();
             goto("/");
         } else {
             localStorage.setItem("user", user.uid);
         }
     });
-    const user = localStorage.getItem("user");
-    const mainColour = localStorage.getItem("colour");
-    const collectionRef = collection(db, "users", user, "sent");
-    const docRef = doc(db, "users", user);
-    console.log(collectionRef);
-    console.log(docRef);
 
-    const data = async () => {
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
+    const userID = localStorage.getItem("user");
+    const q = query(
+        collection(db, "users", userID, "messages"),
+        orderBy("Date", "desc")
+    );
+
+    const getAllMessages = async () => {
+        const querySnapshot = await getDocs(q);
+        const messages = [];
+        querySnapshot.forEach((doc) => {
+            const date = new Date(doc.data().Date);
+            let data = {
+                text: doc.data().message,
+                date: date.toLocaleDateString(),
+            };
+            messages.push(data);
+        });
+        return messages;
     };
-    data();
-
-    let messages = [
-        {
-            text: "Lorem Ipsum nice guchi hello amoug us",
-            date: "Feb 12 23",
-        },
-        {
-            text: "Another message here",
-            date: "Feb 13 23",
-        },
-
-        {
-            text: "All that we see or seem is but a dream within a dream said by Edgar Allan Poe is the best poem ever written in the history of the world",
-            date: "Feb 14 23",
-        },
-        {
-            text: "Lorem Ipsum nice guchi hello amoug us",
-            date: "Feb 12 23",
-        },
-        {
-            text: "Another message here",
-            date: "Feb 13 23",
-        },
-
-        {
-            text: "All that we see or seem is but a dream within a dream said by Edgar Allan Poe is the best poem ever written in the history of the world",
-            date: "Feb 14 23",
-        },
-    ];
+    let messages = [];
+    getAllMessages().then((data) => {
+        messages = data;
+    });
 </script>
 
 <div class="container" style="--main-accent-color: {mainColour}">
