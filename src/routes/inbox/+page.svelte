@@ -2,6 +2,7 @@
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
     import Message from "../../components/message.svelte";
+    import { Translate } from "../../service/Translate";
     import { goto } from "$app/navigation";
     import {
         db,
@@ -23,6 +24,8 @@
             localStorage.setItem("user", user.uid);
         }
     });
+    let trans = new Translate();
+    let mode = false;
     let messages = [];
     const userID = localStorage.getItem("user");
     const q = query(
@@ -33,15 +36,20 @@
     // onSnapshot()
 
     const getAllMessages = async () => {
+        let messages = [];
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
             const date = new Date(doc.data().Date);
             let data = {
                 text: doc.data().message,
+                // date: "112",
                 date: date.toLocaleDateString(),
             };
             messages.push(data);
         });
+        for (let i = 0; i < messages.length; i++) {
+            messages[i].text = trans.toMorse(messages[i].text);
+        }
         return messages;
     };
     // I can't think of a better name because of the monstrosity of
@@ -50,6 +58,22 @@
         getAllMessages().then((data) => {
             messages = data;
         });
+
+        mode = false;
+    }
+
+    function change() {
+        if (mode) {
+            mode = false;
+            for (let i = 0; i < messages.length; i++) {
+                messages[i].text = trans.toMorse(messages[i].text);
+            }
+        } else {
+            mode = true;
+            for (let i = 0; i < messages.length; i++) {
+                messages[i].text = trans.toEnglish(messages[i].text);
+            }
+        }
     }
 </script>
 
@@ -68,12 +92,15 @@
         {:else}
             <div class="message-box">
                 {#each messages as message}
-                    <Message {message} />
+                    <Message {mode} {message} />
                 {/each}
             </div>
         {/if}
     </div>
-    <center><button class="load" on:click={sex}>load</button></center>
+    <center
+        ><button class="load" on:click={sex}>load</button>
+        <button class="load" on:click={change}>change</button>
+    </center>
     <Navbar />
 </div>
 
@@ -84,7 +111,6 @@
         margin: 0;
         padding: 0;
     }
-
     .container {
         display: flex;
         flex-direction: column;
