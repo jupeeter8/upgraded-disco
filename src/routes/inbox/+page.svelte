@@ -83,7 +83,7 @@
         '80'}; --main-grey: grey"
 >
     <Header />
-    <div class="msg-box-cnt">
+    <div class="quote">
         {#if messages.length === 0}
             <p>
                 But to me nothing - the negative, the empty is exceedingly
@@ -111,28 +111,43 @@
         margin: 0;
         padding: 0;
     }
+    :root {
+        --main-bg-color: #f2f2ed;
+        /* --main-accent-color: #ffffff; */
+        --secondary-tet-color: rgb(98, 98, 98);
+    }
     .container {
         display: flex;
         flex-direction: column;
         height: 100vh;
         width: 100vw;
+        background-color: var(--main-bg-color);
     }
     .message-box {
         display: flex;
         flex-direction: column;
-        width: 58%;
+        width: 50%;
         max-height: 70%;
         overflow: auto;
-        border: 2px solid var(--main-accent-color);
+        /* border: 2px solid var(--main-accent-color); */
         margin-left: auto;
         margin-right: auto;
         margin-top: auto;
         margin-bottom: auto;
         padding-top: 1rem;
         padding-bottom: 1rem;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .message-box::-webkit-scrollbar {
+        width: 0.5rem;
     }
 
-    .msg-box-cnt {
+    .message-box:hover {
+        outline: 2px dashed var(--sec-a-color);
+    }
+
+    .quote {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -140,7 +155,7 @@
         height: 58%;
     }
 
-    .msg-box-cnt p {
+    .quote p {
         font-family: "Sacramento", cursive;
         font-size: 3rem;
         letter-spacing: 0.05rem;
