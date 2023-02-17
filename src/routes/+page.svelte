@@ -11,11 +11,17 @@
 
     let username = "";
     let password = "";
+
+    let themeVal;
+
+    theme.subscribe((value) => {
+        themeVal = value;
+    });
+
     changeCollection();
     changeTheme();
-    console.log(theme);
-
     function change() {
+        console.log("change");
         changeTheme();
     }
 
@@ -40,7 +46,7 @@
     };
 </script>
 
-<body style="--main-accent-color: {theme.color}">
+<body style="--main-accent-color: {themeVal.color}">
     <div class="layout">
         <div class="header">
             <h1>MOORSEE</h1>
@@ -72,19 +78,20 @@
                         placeholder="Secret"
                         bind:value={password}
                     />
+                    <button class="inp-f" on:click={change}> Login</button>
                 </div>
             </div>
             <div class="img-holder">
                 <img
-                    src={theme.path}
+                    src={themeVal.path}
                     alt="pink"
                     on:click={login}
                     on:keypress={() => {}}
                 />
 
                 <center
-                    ><a href={theme.link}
-                        ><p>{theme.name} by {theme.artist}</p></a
+                    ><a href={themeVal.link}
+                        ><p>{themeVal.name} by {themeVal.artist}</p></a
                     ></center
                 >
             </div>

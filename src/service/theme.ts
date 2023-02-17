@@ -1,3 +1,4 @@
+import { writable } from 'svelte/store';
 const data = {
     "candles": [
         {
@@ -135,10 +136,10 @@ let selector = {
     4: "paintings"
 }
 
-export let collection = 0
+export let collection;
 
 export let collArray = []
-export let theme: object;
+export let theme = writable({})
 
 export function changeCollection() {
     collection = selector[Math.floor(Math.random() * 4) + 1]
@@ -146,8 +147,7 @@ export function changeCollection() {
 }
 
 export function changeTheme() {
-    theme = collArray[Math.floor(Math.random() * collArray.length)]
+    theme.update(n => n = collArray[Math.floor(Math.random() * collArray.length)])
 }
-
 
 
