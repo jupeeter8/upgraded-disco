@@ -38,7 +38,7 @@
             localStorage.clear();
             localStorage.setItem("user", user.uid);
             localStorage.setItem("loginTime", Date.now());
-            localStorage.setItem("colour", theme.color);
+            localStorage.setItem("colour", themeVal.color);
             goto("/home");
         } else {
             console.error("Login failed");
