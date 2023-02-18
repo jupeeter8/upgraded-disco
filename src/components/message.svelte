@@ -1,27 +1,48 @@
 <script>
     export let message;
     export let mode;
+    let shown = false;
+    let msg;
+    let date;
+
+    function showModal() {
+        if (!shown) {
+            shown = true;
+        } else {
+            shown = false;
+        }
+    }
+    function showdata() {
+        showModal();
+        console.log(mode);
+    }
 </script>
 
-<div class="msg-f">
+{#if shown === true}
+    <div class="modal-bg" on:click={showModal} />
+    <div class="modal">
+        {msg.innerHTML}<br />{date.innerHTML}
+    </div>
+{:else}{/if}
+<div class="msg-f" on:click={showdata}>
     <div class="icn" />
     {#if mode === false}
         <div
             class="msg-content"
             style="font-Family: VT323, monospace; font-size: 1rem;"
         >
-            <p>{message.text}</p>
+            <p bind:this={msg}>{message.text}</p>
         </div>
     {:else}
         <div
             class="msg-content"
             style="font-Family: Sacramento, cursive; font-size: 2rem;"
         >
-            <p>{message.text}</p>
+            <p bind:this={msg}>{message.text}</p>
         </div>
     {/if}
     <div class="icn-sq" />
-    <div class="date">{message.date}</div>
+    <div class="date" bind:this={date}>{message.date}</div>
 </div>
 
 <style>
@@ -34,7 +55,6 @@
         padding-right: 1em;
         padding-top: 0.5em;
         margin-bottom: 0.5em;
-        /* height: 3em; */
     }
     .msg-content {
         font-size: 2.3rem;
@@ -47,6 +67,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        user-select: none;
     }
     .icn {
         width: 0.5rem;
@@ -69,5 +90,29 @@
     .msg-f:hover {
         color: var(--main-accent-color);
         cursor: pointer;
+    }
+    .modal-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal {
+        color: var(--main-accent-color);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: calc(100vw - 1em);
+        max-width: 32em;
+        max-height: calc(100vh - 4em);
+        overflow-x: hidden;
+        word-wrap: break-word;
+        transform: translate(-50%, -50%);
+        padding: 1em;
+        border-radius: 0.2em;
+        background: white;
     }
 </style>
