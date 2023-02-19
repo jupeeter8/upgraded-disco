@@ -1,43 +1,53 @@
 <script>
     import { goto } from "$app/navigation";
-    import { emailLogin, onAuthStateChange } from "../firebase";
+    import { fade } from "svelte/transition";
+    import { emailLogin, onAuthStateChange } from "../service/firebase";
+    import {
+        changeCollection,
+        changeTheme,
+        collArray,
+        collection,
+        theme,
+    } from "../service/theme";
 
     let username = "";
     let password = "";
 
+    let themeVal;
+
+    theme.subscribe((value) => {
+        themeVal = value;
+    });
+
+    changeCollection();
+    changeTheme();
+    function change() {
+        console.log("change");
+        changeTheme();
+    }
+
     onAuthStateChange((user) => {
         if (user) {
             goto("/home");
+        } else {
+            console.log("No User");
         }
     });
-
     const login = async () => {
         const user = await emailLogin(username + "@example.com", password);
         if (user) {
+            localStorage.clear();
+            localStorage.setItem("user", user.uid);
+            localStorage.setItem("loginTime", Date.now());
+            localStorage.setItem("colour", themeVal.color);
             goto("/home");
         } else {
             console.error("Login failed");
         }
     };
-    let imgPicker = {
-        1: "assets/pink.png",
-        2: "assets/plant.jpg",
-        3: "assets/yellow.png",
-    };
-
-    let colorPicker = {
-        1: "#d43d79",
-        2: "#238940",
-        3: "#BB7527",
-    };
-
-    const choice = Math.floor(Math.random() * 3) + 1;
-    const image = imgPicker[choice];
-    const colour = colorPicker[choice];
-    localStorage.setItem("colour", colour);
 </script>
 
-<body style="--main-accent-color: {colour}">
+<body style="--main-accent-color: {themeVal.color}" transition:fade>
     <div class="layout">
         <div class="header">
             <h1>MOORSEE</h1>
@@ -69,12 +79,22 @@
                         placeholder="Secret"
                         bind:value={password}
                     />
+                    <button class="inp-f" on:click={change}> Login</button>
                 </div>
             </div>
             <div class="img-holder">
-                <img src={image} alt="pink" on:click={login} />
+                <img
+                    src={themeVal.path}
+                    alt="pink"
+                    on:click={login}
+                    on:keypress={() => {}}
+                />
 
-                <p>Picture by peron person</p>
+                <center
+                    ><a href={themeVal.link}
+                        ><p>{themeVal.name} by {themeVal.artist}</p></a
+                    ></center
+                >
             </div>
         </div>
     </div>
@@ -182,7 +202,7 @@
         font-size: 1em;
         color: var(--secondary-tet-color);
         /* align this to the center of .img-holder */
-        width: 100%;
+        width: 66%;
         text-align: center;
     }
 
@@ -216,5 +236,10 @@
     .inp-f:focus {
         outline: none;
         border: 3px solid var(--main-accent-color);
+    }
+    /* open links in new tab */
+    a {
+        color: var(--secondary-tet-color);
+        text-decoration: none;
     }
 </style>

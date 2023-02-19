@@ -1,14 +1,24 @@
 <script>
-    import { Translate } from "../../Translate";
+    import { Translate } from "../../service/Translate";
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
-    import { onAuthStateChange } from "../../firebase";
+    import { onAuthStateChange } from "../../service/firebase";
+    import {
+        doc,
+        getDoc,
+        db,
+        collection,
+        setDoc,
+    } from "../../service/messages";
     import { goto } from "$app/navigation";
     const mainColour = localStorage.getItem("colour");
 
     onAuthStateChange((user) => {
         if (!user) {
+            localStorage.clear();
             goto("/");
+        } else {
+            localStorage.setItem("user", user.uid);
         }
     });
 
@@ -99,6 +109,33 @@
             }
         }
     }
+    async function sendMessage() {
+        let message = text;
+        const UserID = localStorage.getItem("user");
+        if (state.textContent === "morse") {
+            message = trans.checkDataMorse(message);
+            message = trans.toEnglish(message);
+        }
+        message = trans.checkDataEnglish(message);
+        const time = new Date().getTime();
+        message = {
+            message: message,
+            Date: time,
+        };
+        if (localStorage.getItem("reciverID") === null) {
+            const docRef = doc(db, "users", UserID);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                this.data = docSnap.data();
+                localStorage.setItem("reciverID", this.data.rec);
+            }
+        }
+        const reciverID = localStorage.getItem("reciverID");
+        const collectionRef = collection(db, "users", reciverID, "messages");
+
+        await setDoc(doc(collectionRef, String(time)), message);
+        text = "";
+    }
 </script>
 
 <div
@@ -125,11 +162,14 @@
             <button class="editor-btn" on:click={enterMorse}>dash</button>
             <button class="editor-btn" on:click={enterMorse}>space</button>
             <button class="editor-btn" on:click={enterMorse}>remove</button>
+            <button class="editor-btn" on:click={sendMessage}>send</button>
         </div>
     </div>
 
     <Navbar />
 </div>
+
+<pre>{text}</pre>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
@@ -201,14 +241,13 @@
         font-size: 2.25rem;
         /* border: 0.5px dashed var(--main-grey); */
         border-radius: 0.5rem;
-        outline: 0px;
     }
 
     #editor:hover {
-        border: 2.5px dashed var(--main-accent-color);
+        outline: 2.5px dashed var(--sec-accent-color);
     }
     #editor:focus {
-        border: 2.5px dashed var(--main-accent-color);
+        outline: 2.5px dashed var(--main-accent-color);
     }
 
     .spacer {

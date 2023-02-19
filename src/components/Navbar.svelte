@@ -1,24 +1,42 @@
 <script>
-    import { auth } from "../firebase";
-    function logout() {
-        auth.signOut();
-    }
+    import { goto } from "$app/navigation";
+    import { logout } from "../service/firebase";
+
+    const signOut = async () => {
+        await logout();
+    };
+    const inbox = () => goto("/inbox");
+    const navHome = () => goto("/home");
 </script>
 
 <div class="nav">
     <div class="nav-border">
         <div class="nav-btn">
-            <span class="material-symbols-outlined">
+            <span
+                class="material-symbols-outlined"
+                on:click={navHome}
+                on:keypress={() => {}}
+            >
                 radio_button_checked
             </span>
         </div>
         <div class="nav-btn">
-            <span class="material-symbols-outlined" on:click={logout}>
+            <span
+                class="material-symbols-outlined"
+                on:click={signOut}
+                on:keypress={() => {}}
+            >
                 view_kanban
             </span>
         </div>
         <div class="nav-btn">
-            <span class="material-symbols-outlined"> inbox </span>
+            <span
+                class="material-symbols-outlined"
+                on:click={inbox}
+                on:keypress={() => {}}
+            >
+                inbox
+            </span>
         </div>
     </div>
 </div>
