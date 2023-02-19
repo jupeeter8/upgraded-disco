@@ -7,6 +7,7 @@
     };
     const inbox = () => goto("/inbox");
     const navHome = () => goto("/home");
+    export let foundWall;
 </script>
 
 <div class="nav">
@@ -20,15 +21,17 @@
                 radio_button_checked
             </span>
         </div>
-        <div class="nav-btn">
-            <span
-                class="material-symbols-outlined"
-                on:click={signOut}
-                on:keypress={() => {}}
-            >
-                view_kanban
-            </span>
-        </div>
+        {#if foundWall === "true"}
+            <div class="nav-btn">
+                <span
+                    class="material-symbols-outlined"
+                    on:click={signOut}
+                    on:keypress={() => {}}
+                >
+                    view_kanban
+                </span>
+            </div>
+        {:else}{/if}
         <div class="nav-btn">
             <span
                 class="material-symbols-outlined"
