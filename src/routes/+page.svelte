@@ -1,5 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
+    import { fade } from "svelte/transition";
     import { emailLogin, onAuthStateChange } from "../service/firebase";
     import {
         changeCollection,
@@ -46,7 +47,7 @@
     };
 </script>
 
-<body style="--main-accent-color: {themeVal.color}">
+<body style="--main-accent-color: {themeVal.color}" transition:fade>
     <div class="layout">
         <div class="header">
             <h1>MOORSEE</h1>
