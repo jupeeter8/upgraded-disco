@@ -1,10 +1,5 @@
 <script>
     import { goto } from "$app/navigation";
-    import { logout } from "../service/firebase";
-
-    const signOut = async () => {
-        await logout();
-    };
     const inbox = () => goto("/inbox");
     const navHome = () => goto("/home");
     export let foundWall;
@@ -23,11 +18,7 @@
         </div>
         {#if foundWall === "true"}
             <div class="nav-btn">
-                <span
-                    class="material-symbols-outlined"
-                    on:click={signOut}
-                    on:keypress={() => {}}
-                >
+                <span class="material-symbols-outlined" on:keypress={() => {}}>
                     view_kanban
                 </span>
             </div>

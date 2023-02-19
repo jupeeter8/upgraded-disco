@@ -27,6 +27,7 @@
     let trans = new Translate();
     let mode = false;
     let messages = [];
+    let foundWall = localStorage.getItem("foundWall");
     const userID = localStorage.getItem("user");
     const q = query(
         collection(db, "users", userID, "messages"),
@@ -101,7 +102,7 @@
         ><button class="load" on:click={sex}>load</button>
         <button class="load" on:click={change}>change</button>
     </center>
-    <Navbar />
+    <Navbar {foundWall} />
 </div>
 
 <style>
