@@ -3,6 +3,7 @@
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
     import { onAuthStateChange } from "../../service/firebase";
+    import { isEgg } from "../../service/eggs";
     import {
         doc,
         getDoc,
@@ -27,6 +28,8 @@
     let trans = new Translate();
     let space = 0;
     let edtDiv;
+    let isEasterEgg = false;
+    let foundWall = localStorage.getItem("foundWall");
 
     function clearText() {
         if (text === "write something here") {
@@ -110,18 +113,34 @@
         }
     }
     async function sendMessage() {
+        navigator.clipboard.writeText(text);
         let message = text;
+
+        if (message === "") return;
+
         const UserID = localStorage.getItem("user");
+
         if (state.textContent === "morse") {
             message = trans.checkDataMorse(message);
             message = trans.toEnglish(message);
         }
+
+        await isEgg(message, UserID).then((res) => {
+            isEasterEgg = res;
+        });
+        if (isEasterEgg) {
+            foundWall = "true";
+            text = "";
+            return;
+        }
         message = trans.checkDataEnglish(message);
+
         const time = new Date().getTime();
         message = {
             message: message,
             Date: time,
         };
+
         if (localStorage.getItem("reciverID") === null) {
             const docRef = doc(db, "users", UserID);
             const docSnap = await getDoc(docRef);
@@ -130,6 +149,7 @@
                 localStorage.setItem("reciverID", this.data.rec);
             }
         }
+
         const reciverID = localStorage.getItem("reciverID");
         const collectionRef = collection(db, "users", reciverID, "messages");
 
@@ -153,6 +173,7 @@
             on:click={clearText}
             bind:innerHTML={text}
             bind:this={edtDiv}
+            on:keyup={() => {}}
         />
         <div class="buttons">
             <button class="editor-btn" on:click={btn_state} bind:this={state}
@@ -166,7 +187,7 @@
         </div>
     </div>
 
-    <Navbar />
+    <Navbar {foundWall} />
 </div>
 
 <pre>{text}</pre>

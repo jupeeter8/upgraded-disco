@@ -2,13 +2,8 @@
     import { goto } from "$app/navigation";
     import { fade } from "svelte/transition";
     import { emailLogin, onAuthStateChange } from "../service/firebase";
-    import {
-        changeCollection,
-        changeTheme,
-        collArray,
-        collection,
-        theme,
-    } from "../service/theme";
+    import { changeCollection, changeTheme, theme } from "../service/theme";
+    import { doc, getDoc, db } from "../service/messages";
 
     let username = "";
     let password = "";
@@ -40,6 +35,9 @@
             localStorage.setItem("user", user.uid);
             localStorage.setItem("loginTime", Date.now());
             localStorage.setItem("colour", themeVal.color);
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+            localStorage.setItem("foundWall", docSnap.data().wall);
             goto("/home");
         } else {
             console.error("Login failed");
