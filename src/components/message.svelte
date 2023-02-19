@@ -1,30 +1,45 @@
 <script>
+    import { fade } from "svelte/transition";
     export let message;
     export let mode;
     let shown = false;
     let msg;
     let date;
-
+    let modalBody;
     function showModal() {
         if (!shown) {
             shown = true;
+            if (mode) {
+                modalBody = "font-Family: Sacramento, cursive; font-size: 2rem";
+            } else {
+                modalBody = "VT323, monospace; font-size: 1rem";
+            }
         } else {
             shown = false;
         }
     }
     function showdata() {
         showModal();
-        console.log(mode);
     }
 </script>
 
 {#if shown === true}
-    <div class="modal-bg" on:click={showModal} />
-    <div class="modal">
-        {msg.innerHTML}<br />{date.innerHTML}
+    <div
+        class="modal-bg"
+        on:click={showModal}
+        transition:fade
+        on:keypress={() => {}}
+    />
+    <div class="modal" transition:fade>
+        <p id="modal-date">
+            Date: {date.innerHTML}
+        </p>
+        <p style={modalBody} id="modal-msg">
+            {msg.innerHTML}
+        </p>
     </div>
-{:else}{/if}
-<div class="msg-f" on:click={showdata}>
+{:else}<div />{/if}
+<div class="msg-f" on:click={showdata} on:keypress={() => {}}>
     <div class="icn" />
     {#if mode === false}
         <div
@@ -101,18 +116,42 @@
     }
 
     .modal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         color: var(--main-accent-color);
+        font-family: "VT323", monospace;
+        font-size: 1.5rem;
         position: absolute;
         left: 50%;
         top: 50%;
-        width: calc(100vw - 1em);
+        width: calc(100vw - 0.5em);
         max-width: 32em;
         max-height: calc(100vh - 4em);
         overflow-x: hidden;
         word-wrap: break-word;
         transform: translate(-50%, -50%);
-        padding: 1em;
-        border-radius: 0.2em;
+        padding: 0.5em;
+        /* border-radius: 0.2em; */
         background: white;
+    }
+    #modal-date {
+        color: black;
+        margin: 0;
+        margin-bottom: 0.5em;
+        text-align: center;
+        padding: 0.5em;
+        font-size: 0.7em;
+    }
+
+    #modal-date:hover {
+        background-color: var(--sec-a-color);
+    }
+    #modal-msg {
+        padding-left: 2em;
+        padding-right: 2em;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 0.5em;
     }
 </style>
