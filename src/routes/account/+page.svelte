@@ -7,6 +7,7 @@
     theme.subscribe((value) => {
         themeVal = value;
     });
+    let themeNow = JSON.parse(localStorage.getItem("theme"));
 
     onAuthStateChange((user) => {
         if (!user) {
@@ -20,10 +21,14 @@
         changeCollection();
         changeTheme();
         localStorage.setItem("colour", themeVal.color);
+        localStorage.setItem("theme", JSON.stringify(themeVal));
+        themeNow = themeVal;
     }
     function changetheme() {
         changeTheme();
         localStorage.setItem("colour", themeVal.color);
+        localStorage.setItem("theme", JSON.stringify(themeVal));
+        themeNow = themeVal;
     }
 
     const navigate = () => goto("/home");
@@ -35,7 +40,7 @@
 <div
     transition:fade
     class="body"
-    style="--main-accent-color: {themeVal.color}; --sec-a-color: {themeVal.color +
+    style="--main-accent-color: {themeNow.color}; --sec-a-color: {themeNow.color +
         '80'}"
 >
     <div class="header">
@@ -44,14 +49,14 @@
     </div>
     <div class="img-holder">
         <img
-            src={themeVal.path}
+            src={themeNow.path}
             alt="wow"
             on:click={navigate}
             on:keyup={() => {}}
         />
     </div>
-    <a href={themeVal.link} target="_blank">
-        <p id="img-info">{themeVal.name} by {themeVal.artist}</p>
+    <a href={themeNow.link} target="_blank">
+        <p id="img-info">{themeNow.name} by {themeNow.artist}</p>
     </a>
     <div class="btns">
         <button class="btn" on:click={change}>collection</button>

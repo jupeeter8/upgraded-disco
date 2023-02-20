@@ -31,6 +31,7 @@
             localStorage.setItem("user", user.uid);
             localStorage.setItem("loginTime", Date.now());
             localStorage.setItem("colour", themeVal.color);
+            localStorage.setItem("theme", JSON.stringify(themeVal));
             const docRef = doc(db, "users", user.uid);
             const docSnap = await getDoc(docRef);
             localStorage.setItem("foundWall", docSnap.data().wall);
