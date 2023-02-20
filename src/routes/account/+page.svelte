@@ -2,6 +2,7 @@
     import { goto } from "$app/navigation";
     import { changeCollection, changeTheme, theme } from "../../service/theme";
     import { onAuthStateChange, auth } from "../../service/firebase";
+    import { fade } from "svelte/transition";
     let themeVal;
     theme.subscribe((value) => {
         themeVal = value;
@@ -32,6 +33,7 @@
 </script>
 
 <div
+    transition:fade
     class="body"
     style="--main-accent-color: {themeVal.color}; --sec-a-color: {themeVal.color +
         '80'}"
