@@ -53,9 +53,7 @@
                     85% of plant life is found in oceans. You only have 15% to
                     take care of.
                 </p>
-                <p id="cringe-txt">
-                    Lorem ipsum dolor sit amet <br />Lorem ipsum dolor
-                </p>
+                <p id="cringe-txt">Made with ❤️ By Anirudh</p>
                 <div class="input-field">
                     <input
                         class="inp-f"
@@ -84,7 +82,7 @@
                 />
 
                 <center
-                    ><a href={themeVal.link}
+                    ><a href={themeVal.link} target="_blank"
                         ><p>{themeVal.name} by {themeVal.artist}</p></a
                     ></center
                 >
@@ -161,14 +159,14 @@
     #fact-txt {
         font-family: "Sacramento", cursive;
         font-size: 2.5em;
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
         color: var(--main-accent-color);
     }
 
     #cringe-txt {
         font-family: "VT323", monospace;
         font-size: 1em;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         color: var(--secondary-tet-color);
         width: 50%;
     }
@@ -211,7 +209,7 @@
         padding: 0.5rem 1rem;
         border-radius: 5px;
         border: 3px dashed black;
-        margin-right: 1rem;
+        margin-right: 2rem;
         cursor: pointer;
         text-align: center;
     }
