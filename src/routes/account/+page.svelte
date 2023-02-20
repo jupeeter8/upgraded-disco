@@ -1,9 +1,19 @@
 <script>
     import { goto } from "$app/navigation";
     import { changeCollection, changeTheme, theme } from "../../service/theme";
+    import { onAuthStateChange, auth } from "../../service/firebase";
     let themeVal;
     theme.subscribe((value) => {
         themeVal = value;
+    });
+
+    onAuthStateChange((user) => {
+        if (!user) {
+            localStorage.clear();
+            goto("/");
+        } else {
+            localStorage.setItem("user", user.uid);
+        }
     });
     function change() {
         changeCollection();
@@ -16,6 +26,9 @@
     }
 
     const navigate = () => goto("/home");
+    const signOut = () => {
+        auth.signOut();
+    };
 </script>
 
 <div
@@ -35,11 +48,14 @@
             on:keyup={() => {}}
         />
     </div>
-    <a href={themeVal.link}>
+    <a href={themeVal.link} target="_blank">
         <p id="img-info">{themeVal.name} by {themeVal.artist}</p>
     </a>
-    <button on:click={change}>Change</button>
-    <button on:click={changetheme}>Change Theme</button>
+    <div class="btns">
+        <button class="btn" on:click={change}>collection</button>
+        <button class="btn" on:click={changetheme}>theme</button>
+        <button class="btn" on:click={signOut}>sign out</button>
+    </div>
 </div>
 
 <style>
@@ -100,17 +116,46 @@
     }
     a {
         width: 100vw;
+        height: 40px;
         /* remove underline */
         text-decoration: none;
     }
     #img-info {
         font-family: "Port Lligat Slab", serif;
         font-size: 0.8em;
-        color: var(--sec-a-color);
+        color: grey;
         text-align: center;
         margin: 0px;
         width: 18%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .btns {
+        display: flex;
+        justify-content: space-around;
+        margin-left: auto;
+        margin-right: auto;
+        width: 38%;
+        border: 2px dashed var(--sec-a-color);
+        margin-top: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        border-radius: 5px;
+    }
+    .btn {
+        /* padding: 0.5rem; */
+        width: fit-content;
+        border-radius: 5px;
+        border: none;
+        font-family: "VT323", monospace;
+        font-size: 1.5em;
+        color: grey;
+        background: none;
+    }
+
+    .btn:hover {
+        background-color: var(--sec-a-color);
+        color: black;
+        cursor: pointer;
     }
 </style>
