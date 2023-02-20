@@ -16,10 +16,6 @@
 
     changeCollection();
     changeTheme();
-    function change() {
-        console.log("change");
-        changeTheme();
-    }
 
     onAuthStateChange((user) => {
         if (user) {
@@ -77,7 +73,6 @@
                         placeholder="Secret"
                         bind:value={password}
                     />
-                    <button class="inp-f" on:click={change}> Login</button>
                 </div>
             </div>
             <div class="img-holder">
