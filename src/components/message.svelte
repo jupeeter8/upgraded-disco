@@ -2,17 +2,24 @@
     import { fade } from "svelte/transition";
     export let message;
     export let mode;
+    import { Howl, Howler } from "howler";
     let shown = false;
     let msg;
     let date;
     let modalBody;
+    let dot = new Howl({
+        src: ["sounds/dot.wav"],
+    });
+    let dash = new Howl({
+        src: ["sounds/dash.wav"],
+    });
     function showModal() {
         if (!shown) {
             shown = true;
             if (mode) {
                 modalBody = "font-Family: Sacramento, cursive; font-size: 2rem";
             } else {
-                modalBody = "VT323, monospace; font-size: 1rem";
+                modalBody = "VT323, monospace; font-size: 1.5rem";
             }
         } else {
             shown = false;
@@ -20,6 +27,26 @@
     }
     function showdata() {
         showModal();
+    }
+
+    async function playMorse() {
+        let morse = msg.innerHTML;
+        for (let i = 0; i < morse.length; i++) {
+            if (morse[i] === ".") {
+                dot.play();
+                // sleep for 1 second
+                await new Promise((r) => setTimeout(r, 200));
+            } else if (morse[i] === "_") {
+                dash.play();
+                await new Promise((r) => setTimeout(r, 400));
+            } else if (morse[i] === " ") {
+                await new Promise((r) => setTimeout(r, 200));
+            } else if (morse[i] === "/") {
+                await new Promise((r) => setTimeout(r, 400));
+            }
+
+            await new Promise((r) => setTimeout(r, 100));
+        }
     }
 </script>
 
@@ -37,6 +64,9 @@
         <p style={modalBody} id="modal-msg">
             {msg.innerHTML}
         </p>
+        <span class="material-symbols-outlined" on:click={playMorse}>
+            play_arrow
+        </span>
     </div>
 {:else}<div />{/if}
 <div class="msg-f" on:click={showdata} on:keypress={() => {}}>
@@ -61,6 +91,7 @@
 </div>
 
 <style>
+    @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
     .msg-f {
         display: flex;
         margin: 0%;
@@ -138,10 +169,9 @@
     #modal-date {
         color: black;
         margin: 0;
-        margin-bottom: 0.5em;
         text-align: center;
         padding: 0.5em;
-        font-size: 0.7em;
+        font-size: 1em;
     }
 
     #modal-date:hover {
@@ -152,6 +182,14 @@
         padding-right: 2em;
         text-align: center;
         margin: 0;
-        margin-bottom: 0.5em;
+        margin-top: 1.5em;
+        margin-bottom: 2em;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+    }
+    .material-symbols-outlined:hover {
+        cursor: pointer;
     }
 </style>
