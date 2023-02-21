@@ -34,15 +34,14 @@
         for (let i = 0; i < morse.length; i++) {
             if (morse[i] === ".") {
                 dot.play();
-                // sleep for 1 second
                 await new Promise((r) => setTimeout(r, 200));
             } else if (morse[i] === "_") {
                 dash.play();
                 await new Promise((r) => setTimeout(r, 400));
             } else if (morse[i] === " ") {
-                await new Promise((r) => setTimeout(r, 200));
+                await new Promise((r) => setTimeout(r, 100));
             } else if (morse[i] === "/") {
-                await new Promise((r) => setTimeout(r, 400));
+                await new Promise((r) => setTimeout(r, 300));
             }
 
             await new Promise((r) => setTimeout(r, 100));
