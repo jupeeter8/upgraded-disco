@@ -51,7 +51,7 @@
 <body style="--main-accent-color: {themeVal.color}" transition:fade>
     <div class="layout">
         <div class="header">
-            <h1>MOORSEE</h1>
+            <h1>UNNECESSARY BEEPS</h1>
             <p>.._ _. _.. . ._. ._.. .. _. .</p>
         </div>
         <div class="landing">
@@ -138,19 +138,19 @@
 
     .header {
         margin-bottom: 3rem;
-        font-size: 62px;
+        font-size: 58px;
     }
 
     .header p {
         font-family: "VT323", monospace;
-        font-size: 0.25em;
+        font-size: 0.4em;
     }
 
     .header h1 {
         font-family: "VT323", monospace;
         margin: 0px;
         font-size: 1em;
-        margin-bottom: -20px;
+        margin-bottom: -23px;
     }
 
     .landing {

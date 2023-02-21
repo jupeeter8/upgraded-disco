@@ -30,6 +30,9 @@
     }
 
     async function playMorse() {
+        if (mode) {
+            return;
+        }
         let morse = msg.innerHTML;
         for (let i = 0; i < morse.length; i++) {
             if (morse[i] === ".") {

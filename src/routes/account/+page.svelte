@@ -44,7 +44,7 @@
         '80'}"
 >
     <div class="header">
-        <h1>MOORSEE</h1>
+        <h1>UNNECESSARY BEEPS</h1>
         <p>.._ _. _.. . ._. ._.. .. _. .</p>
     </div>
     <div class="img-holder">
@@ -81,25 +81,24 @@
     }
     .header {
         font-family: "VT323", monospace;
-        font-size: 32px;
+        font-size: 24px;
         margin-top: 3rem;
         width: 100%;
         margin-bottom: 1rem;
         user-select: none;
+        margin-left: 78%;
     }
 
     .header h1 {
         margin: 0px;
-        margin-bottom: -24px;
-        width: fit-content;
+        margin-bottom: -22px;
         margin-left: auto;
         margin-right: auto;
     }
 
     .header p {
         margin: 0px;
-        font-size: 0.5em;
-        width: fit-content;
+        font-size: 0.8em;
         margin-left: auto;
         margin-right: auto;
     }

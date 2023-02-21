@@ -4,7 +4,7 @@
 </script>
 
 <div class="header" on:click={navigate}>
-    <h1>MOORSEE</h1>
+    <h1>UNNECESSARY BEEPS</h1>
     <p>.._ _. _.. . ._. ._.. .. _. .</p>
 </div>
 
@@ -15,17 +15,18 @@
         padding-left: 125px;
         padding-top: 3rem;
         font-size: 16px;
+        color: var(--main-accent-color);
     }
 
     .header h1 {
         margin: 0px;
-        margin-bottom: -12px;
+        margin-bottom: -14px;
         cursor: pointer;
     }
 
     .header p {
         margin: 0px;
-        font-size: 0.5em;
+        font-size: 0.79em;
         cursor: pointer;
     }
 </style>
