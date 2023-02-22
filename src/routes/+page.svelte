@@ -54,8 +54,11 @@
 <body style="--main-accent-color: {themeVal.color}" transition:fade>
     <div class="layout">
         <div class="header">
-            <h1>UNNECESSARY BEEPS</h1>
-            <p>.._ _. _.. . ._. ._.. .. _. .</p>
+            <!-- <h1>UNNECESSARY BEEPS</h1>
+            <p>.._ _. _.. . ._. ._.. .. _. .</p> -->
+            <div class="img">
+                <img src="/nice.svg" alt="UNNECESSARY BEEPS" />
+            </div>
         </div>
         <div class="landing">
             <div class="info">
@@ -146,6 +149,18 @@
     .header {
         margin-bottom: 3rem;
         font-size: 58px;
+        display: flex;
+        justify-content: start;
+    }
+
+    .img {
+        width: fit-content;
+        height: 60px;
+    }
+
+    .img img {
+        height: 100%;
+        width: 100%;
     }
 
     .header p {
