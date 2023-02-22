@@ -92,6 +92,7 @@
                     src={themeVal.path}
                     alt="pink"
                     on:click={login}
+                    loading="eager"
                     on:keypress={() => {}}
                 />
 
