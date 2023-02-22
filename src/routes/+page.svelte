@@ -4,6 +4,7 @@
     import { emailLogin, onAuthStateChange } from "../service/firebase";
     import { changeCollection, changeTheme, theme } from "../service/theme";
     import { doc, getDoc, db } from "../service/messages";
+    import Ballon from "../components/Ballon.svelte";
 
     let username = "";
     let password = "";
@@ -41,9 +42,11 @@
         }
     };
     let time = new Date(new Date().getTime());
-    const date = time.toLocaleDateString();
+    const date = time.getDate();
+    const month = time.getMonth() + 1;
     let isDDay = false;
-    if (date.startsWith("28/2") || date.startsWith("28/02")) {
+    // check if date is 28 and month is 2
+    if (date === 28 && month === 2) {
         isDDay = true;
     }
 </script>
@@ -93,13 +96,16 @@
                 />
 
                 <center
-                    ><a href={themeVal.link} target="_blank"
+                    ><a href={themeVal.link} target="_blank" rel="noreferrer"
                         ><p>{themeVal.name} by {themeVal.artist}</p></a
                     ></center
                 >
             </div>
         </div>
     </div>
+    {#if isDDay}
+        <Ballon />
+    {/if}
 </body>
 
 <style>
