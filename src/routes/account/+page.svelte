@@ -49,8 +49,8 @@
     style="--main-accent-color: {themeNow.color}; --sec-a-color: {themeNow.color +
         '80'}"
 >
-    <div class="name">
-        <Header class="nice" />
+    <div class="name" style="color:black">
+        <Header />
     </div>
     <div class="img-holder">
         <img
@@ -128,9 +128,19 @@
         color: grey;
         text-align: center;
         margin: 0px;
-        width: 18%;
+        width: fit-content;
         margin-left: auto;
         margin-right: auto;
+        background: linear-gradient(var(--sec-a-color) 0 0) no-repeat;
+        background-size: 0%;
+        transition: all 0.4s cubic-bezier(0.58, 0, 0.48, 1.16);
+        padding: 0.1em;
+    }
+    #img-info:hover {
+        color: black;
+        background-size: 100%;
+        text-decoration: underline;
+        /* background-color: grey; */
     }
     .btns {
         display: flex;
