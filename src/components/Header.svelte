@@ -25,8 +25,6 @@
 <style>
     @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
     .header {
-        padding-left: 125px;
-        padding-top: 3rem;
         color: var(--main-accent-color);
         cursor: pointer;
     }
