@@ -2,7 +2,7 @@
     import { Translate } from "../../service/Translate";
     import Header from "../../components/Header.svelte";
     import Navbar from "../../components/Navbar.svelte";
-    import { onAuthStateChange } from "../../service/firebase";
+    import { auth, onAuthStateChange } from "../../service/firebase";
     import { isEgg } from "../../service/eggs";
     import {
         doc,
@@ -19,6 +19,11 @@
             localStorage.clear();
             goto("/");
         } else {
+            const loginTime = localStorage.getItem("loginTime");
+            if (Date.now() - loginTime > 3600000) {
+                localStorage.clear();
+                auth.signOut();
+            }
             localStorage.setItem("user", user.uid);
         }
     });

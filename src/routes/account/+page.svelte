@@ -14,6 +14,11 @@
             localStorage.clear();
             goto("/");
         } else {
+            const loginTime = localStorage.getItem("loginTime");
+            if (Date.now() - loginTime > 3600000) {
+                localStorage.clear();
+                auth.signOut();
+            }
             localStorage.setItem("user", user.uid);
         }
     });
@@ -55,7 +60,7 @@
             on:keyup={() => {}}
         />
     </div>
-    <a href={themeNow.link} target="_blank">
+    <a href={themeNow.link} target="_blank" rel="noreferrer">
         <p id="img-info">{themeNow.name} by {themeNow.artist}</p>
     </a>
     <div class="btns">

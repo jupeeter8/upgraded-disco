@@ -21,6 +21,11 @@
             localStorage.clear();
             goto("/");
         } else {
+            const loginTime = localStorage.getItem("loginTime");
+            if (Date.now() - loginTime > 3600000) {
+                localStorage.clear();
+                auth.signOut();
+            }
             localStorage.setItem("user", user.uid);
         }
     });
