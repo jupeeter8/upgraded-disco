@@ -22,7 +22,7 @@
                     view_kanban
                 </span>
             </div>
-        {:else}{/if}
+        {/if}
         <div class="nav-btn">
             <span
                 class="material-symbols-outlined"

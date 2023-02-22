@@ -66,7 +66,11 @@
         <p style={modalBody} id="modal-msg">
             {msg.innerHTML}
         </p>
-        <span class="material-symbols-outlined" on:click={playMorse}>
+        <span
+            class="material-symbols-outlined"
+            on:click={playMorse}
+            on:keyup={() => {}}
+        >
             play_arrow
         </span>
     </div>
