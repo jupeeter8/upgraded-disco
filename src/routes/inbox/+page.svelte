@@ -88,7 +88,9 @@
     style="--main-accent-color: {mainColour}; --sec-a-color: {mainColour +
         '80'}; --main-grey: grey"
 >
-    <Header />
+    <div class="header-layout">
+        <Header />
+    </div>
     <div class="quote">
         {#if messages.length === 0}
             <p>
@@ -168,6 +170,7 @@
         width: 50%;
         text-align: center;
         color: var(--sec-a-color);
+        margin: 0;
     }
 
     .load {
@@ -184,5 +187,9 @@
         background-color: var(--sec-a-color);
         color: black;
         cursor: pointer;
+    }
+    .header-layout {
+        margin-top: 3em;
+        margin-left: 10em;
     }
 </style>

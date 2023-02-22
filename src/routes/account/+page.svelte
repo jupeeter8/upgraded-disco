@@ -3,6 +3,7 @@
     import { changeCollection, changeTheme, theme } from "../../service/theme";
     import { onAuthStateChange, auth } from "../../service/firebase";
     import { fade } from "svelte/transition";
+    import Header from "../../components/Header.svelte";
     let themeVal;
     theme.subscribe((value) => {
         themeVal = value;
@@ -48,9 +49,8 @@
     style="--main-accent-color: {themeNow.color}; --sec-a-color: {themeNow.color +
         '80'}"
 >
-    <div class="header">
-        <h1>UNNECESSARY BEEPS</h1>
-        <p>.._ _. _.. . ._. ._.. .. _. .</p>
+    <div class="name">
+        <Header class="nice" />
     </div>
     <div class="img-holder">
         <img
@@ -77,6 +77,9 @@
         padding: 0;
         background-color: #f2f2ed;
     }
+
+    /* change properties of header component */
+
     .body {
         display: flex;
         flex-direction: column;
@@ -84,29 +87,17 @@
         height: 100vh;
         width: 100vw;
     }
-    .header {
-        font-family: "VT323", monospace;
-        font-size: 24px;
+    .name {
         margin-top: 3rem;
-        width: 100%;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
+        width: fit-content;
         user-select: none;
-        margin-left: 78%;
+        display: flex;
+        font-size: 1.5em;
+        padding-top: 1em;
+        /* background-color: aqua; */
     }
 
-    .header h1 {
-        margin: 0px;
-        margin-bottom: -22px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .header p {
-        margin: 0px;
-        font-size: 0.8em;
-        margin-left: auto;
-        margin-right: auto;
-    }
     .img-holder {
         height: 375px;
         width: 18%;

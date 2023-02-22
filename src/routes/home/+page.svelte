@@ -169,7 +169,9 @@
     style="--main-accent-color: {mainColour}; --sec-accent-color: {mainColour +
         '80'}; --main-grey: grey;"
 >
-    <Header />
+    <div class="header-layout">
+        <Header />
+    </div>
     <div class="spacer" />
     <div class="container">
         <div
@@ -276,5 +278,9 @@
 
     .spacer {
         height: 100px;
+    }
+    .header-layout {
+        margin-top: 3em;
+        margin-left: 10em;
     }
 </style>

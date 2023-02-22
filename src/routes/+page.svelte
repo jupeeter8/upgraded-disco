@@ -163,18 +163,6 @@
         width: 100%;
     }
 
-    .header p {
-        font-family: "VT323", monospace;
-        font-size: 0.4em;
-    }
-
-    .header h1 {
-        font-family: "VT323", monospace;
-        margin: 0px;
-        font-size: 1em;
-        margin-bottom: -23px;
-    }
-
     .landing {
         display: flex;
         height: 400px;
