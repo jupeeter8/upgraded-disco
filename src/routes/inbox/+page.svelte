@@ -118,6 +118,12 @@
         ><button class="load" on:click={sex}>load</button>
         <button class="load" on:click={change}>change</button>
     </center>
+</div>
+<div
+    class="navbar-layout"
+    style="--main-accent-color: {mainColour}; --sec-a-color: {mainColour +
+        '80'}; --main-grey: grey"
+>
     <Navbar {foundWall} />
 </div>
 
@@ -127,6 +133,7 @@
     :global(body) {
         margin: 0;
         padding: 0;
+        background-color: var(--main-bg-color);
     }
     :root {
         --main-bg-color: #f2f2ed;
@@ -136,7 +143,7 @@
     .container {
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: calc(100vh - 10rem);
         width: 100vw;
         background-color: var(--main-bg-color);
     }
@@ -203,6 +210,11 @@
     }
 
     @media only screen and (max-width: 768px) {
+        :global(body) {
+            margin: 0;
+            padding: 0;
+            background-color: var(--main-bg-color);
+        }
         .container {
             display: flex;
             flex-direction: column;
@@ -235,6 +247,9 @@
             width: calc(100vw - 2em);
 
             border: 1px solid var(--main-accent-color);
+        }
+        .navbar-layout {
+            background-color: var(--main-bg-color);
         }
     }
 </style>
