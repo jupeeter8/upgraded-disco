@@ -290,7 +290,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            max-width: 100vw;
+            width: 100vw;
             padding-left: 1em;
             padding-right: 1em;
             padding-top: 2em;
@@ -304,6 +304,7 @@
         .container {
             margin: 0px;
             width: 100%;
+            margin-bottom: 10em;
         }
 
         .spacer {

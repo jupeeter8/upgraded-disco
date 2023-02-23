@@ -206,4 +206,14 @@
     .material-symbols-outlined:hover {
         cursor: pointer;
     }
+    @media screen and (max-width: 768px) {
+        .icn {
+            width: 0;
+            height: 0;
+        }
+        .icn-sq {
+            width: 0;
+            height: 0;
+        }
+    }
 </style>
