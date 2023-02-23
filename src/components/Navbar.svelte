@@ -74,7 +74,7 @@
             width: 75%;
             flex-grow: 0;
             margin: 0;
-            padding-top: 10em;
+
             margin-left: auto;
             margin-right: auto;
         }

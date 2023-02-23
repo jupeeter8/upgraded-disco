@@ -100,24 +100,30 @@
     <div class="header-layout">
         <Header />
     </div>
-    <div class="quote">
-        {#if messages.length === 0}
+    {#if messages.length === 0}
+        <div class="quote">
             <p>
                 But to me nothing - the negative, the empty is exceedingly
                 powerful.
             </p>
-        {:else}
-            <div class="message-box">
-                {#each messages as message}
-                    <Message {mode} {message} />
-                {/each}
-            </div>
-        {/if}
-    </div>
+        </div>
+    {:else}
+        <div class="message-box">
+            {#each messages as message}
+                <Message {mode} {message} />
+            {/each}
+        </div>
+    {/if}
     <center
         ><button class="load" on:click={sex}>load</button>
         <button class="load" on:click={change}>change</button>
     </center>
+</div>
+<div
+    class="navbar-layout"
+    style="--main-accent-color: {mainColour}; --sec-a-color: {mainColour +
+        '80'}; --main-grey: grey"
+>
     <Navbar {foundWall} />
 </div>
 
@@ -127,6 +133,7 @@
     :global(body) {
         margin: 0;
         padding: 0;
+        background-color: var(--main-bg-color);
     }
     :root {
         --main-bg-color: #f2f2ed;
@@ -136,7 +143,7 @@
     .container {
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        height: calc(100vh - 10rem);
         width: 100vw;
         background-color: var(--main-bg-color);
     }
@@ -144,13 +151,13 @@
         display: flex;
         flex-direction: column;
         width: 50%;
-        max-height: 70%;
+        max-height: 20%;
         overflow: auto;
         /* border: 2px solid var(--main-accent-color); */
         margin-left: auto;
         margin-right: auto;
-        margin-top: auto;
-        margin-bottom: auto;
+        margin-top: 5em;
+        margin-bottom: 2.5em;
         padding-top: 1rem;
         padding-bottom: 1rem;
         -ms-overflow-style: none;
@@ -200,5 +207,49 @@
     .header-layout {
         margin-top: 3em;
         margin-left: 10em;
+    }
+
+    @media only screen and (max-width: 768px) {
+        :global(body) {
+            margin: 0;
+            padding: 0;
+            background-color: var(--main-bg-color);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* min-height: 100vh; */
+            width: 100vw;
+            background-color: var(--main-bg-color);
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 2em;
+        }
+        .header-layout {
+            margin: 0px;
+            width: 100%;
+            font-size: 1em;
+            margin-top: 2em;
+            margin-bottom: 8em;
+            text-align: center;
+        }
+        .quote {
+            height: fit-content;
+            margin-bottom: 4em;
+        }
+        .quote p {
+            font-size: 2rem;
+            width: 90%;
+        }
+
+        .message-box {
+            width: calc(100vw - 2em);
+
+            border: 1px solid var(--main-accent-color);
+        }
+        .navbar-layout {
+            background-color: var(--main-bg-color);
+        }
     }
 </style>

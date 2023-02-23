@@ -10,11 +10,11 @@
     <div class="h">
         <Header />
     </div>
-    <p>Hardy Snadhu</p>
+    <p>Hardy Sandhu</p>
     <div class="us">
         <img src="/index.jpg" alt="us" on:click={home} />
     </div>
-    <p>Hardy Snadhu</p>
+    <p>Hardy Sandhu</p>
 </div>
 
 <style>
