@@ -3,6 +3,7 @@
     export let message;
     export let mode;
     import { Howl, Howler } from "howler";
+    let play = true;
     let shown = false;
     let msg;
     let date;
@@ -23,18 +24,22 @@
             }
         } else {
             shown = false;
+            play = false;
         }
     }
     function showdata() {
         showModal();
     }
-
     async function playMorse() {
         if (mode) {
             return;
         }
         let morse = msg.innerHTML;
         for (let i = 0; i < morse.length; i++) {
+            if (play === false) {
+                console.log("play");
+                break;
+            }
             if (morse[i] === ".") {
                 dot.play();
                 await new Promise((r) => setTimeout(r, 200));
@@ -49,6 +54,7 @@
 
             await new Promise((r) => setTimeout(r, 100));
         }
+        play = true;
     }
 </script>
 
