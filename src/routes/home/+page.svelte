@@ -290,7 +290,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            width: 100vw;
+            max-width: 100vw;
             padding-left: 1em;
             padding-right: 1em;
             padding-top: 2em;
