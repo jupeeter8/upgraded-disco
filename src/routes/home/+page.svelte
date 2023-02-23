@@ -129,7 +129,7 @@
             isEasterEgg = res;
         });
         if (isEasterEgg) {
-            foundWall = "true";
+            // foundWall = "true";
             text = "";
             return;
         }
