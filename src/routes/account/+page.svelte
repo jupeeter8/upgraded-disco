@@ -44,7 +44,7 @@
     style="--main-accent-color: {themeNow.color}; --sec-a-color: {themeNow.color +
         '80'}"
 >
-    <div class="name" style="color:black">
+    <div class="header" style="color:black">
         <Header />
     </div>
     <div class="img-holder">
@@ -58,7 +58,13 @@
     <a href={themeNow.link} target="_blank" rel="noreferrer">
         <p id="img-info">{themeNow.name} by {themeNow.artist}</p>
     </a>
-    <div class="btns">
+</div>
+<div class="btn-mobile">
+    <div
+        class="btns"
+        style="--main-accent-color: {themeNow.color}; --sec-a-color: {themeNow.color +
+            '80'}"
+    >
         <button class="btn" on:click={change}>collection</button>
         <button class="btn" on:click={changetheme}>theme</button>
         <button class="btn" on:click={signOut}>sign out</button>
@@ -79,10 +85,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 100vh;
+        height: calc(100vh - 10em);
         width: 100vw;
     }
-    .name {
+    .header {
         margin-top: 3rem;
         margin-bottom: 2rem;
         width: fit-content;
@@ -158,11 +164,68 @@
         font-size: 1.5em;
         color: grey;
         background: none;
+        cursor: pointer;
     }
 
     .btn:hover {
         background-color: var(--sec-a-color);
         color: black;
-        cursor: pointer;
+    }
+    @media screen and (max-width: 600px) {
+        :global(body) {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2ed;
+        }
+        .body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-height: calc(100vh - 10em);
+            width: 100vw;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 2em;
+        }
+        .header {
+            margin-top: 0;
+            width: auto;
+            user-select: none;
+            font-size: 1em;
+            padding-top: 1em;
+            margin-bottom: 2em;
+            /* background-color: aqua; */
+        }
+        .img-holder {
+            margin: 0;
+            padding: 0;
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 0.5em;
+        }
+        .img-holder img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .btn-mobile {
+            width: 100vw;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+        .btns {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+        .btn:focus {
+            background-color: var(--sec-a-color);
+            color: black;
+        }
     }
 </style>

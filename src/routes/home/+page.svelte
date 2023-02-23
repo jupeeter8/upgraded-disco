@@ -278,4 +278,81 @@
         margin-top: 3em;
         margin-left: 10em;
     }
+
+    @media screen and (max-width: 768px) {
+        :global(body) {
+            margin: 0;
+            padding: 0;
+        }
+        .body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100vw;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 2em;
+        }
+        .header-layout {
+            margin: 0px;
+            width: 100%;
+            font-size: 1em;
+            margin-top: 2em;
+        }
+        .container {
+            margin: 0px;
+            width: 100%;
+        }
+
+        .spacer {
+            height: 10em;
+        }
+        #editor {
+            display: flex;
+            height: 2em;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            overflow-y: scroll;
+            overflow-x: visible;
+            word-wrap: break-word;
+            margin-bottom: 2.25rem;
+            font-family: "Sacramento", cursive;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            font-size: 2.25rem;
+            border-radius: 0.5rem;
+            outline: 2px dashed var(--sec-accent-color);
+        }
+
+        #editor:focus {
+            outline: 2px solid var(--main-accent-color);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+        .editor-btn {
+            /* padding: 0.5rem; */
+            width: fit-content;
+            border-radius: 5px;
+            border: 2px solid var(--sec-accent-color);
+            font-family: "VT323", monospace;
+            font-size: 1em;
+            color: var(--main-grey);
+            background: none;
+        }
+        .editor-btn:focus {
+            background-color: var(--sec-accent-color);
+            color: black;
+            cursor: pointer;
+        }
+    }
 </style>
