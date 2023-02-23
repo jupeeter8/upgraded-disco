@@ -1,5 +1,5 @@
 import { doc, db, updateDoc } from "./messages"
-let eggs = { "6049sex57~`shit": "wall", "rdr": true, "alge": "alge", }
+let eggs = { "6049sex57~`shit": "wall", "rdr": true, }
 
 
 export async function isEgg(egg: string, UserID: string) {
@@ -19,7 +19,7 @@ export async function isEgg(egg: string, UserID: string) {
         window.open("https://www.youtube.com/watch?v=hAdZPnxINQw", "_blank")
         return true
     }
-    if (egg.includes("last")) {
+    if (egg.includes("breakup")) {
         window.open("https://www.youtube.com/watch?v=WoxFRRf9DJM", "_blank")
         return true
     }
@@ -27,7 +27,8 @@ export async function isEgg(egg: string, UserID: string) {
         window.open("https://en.wikipedia.org/wiki/Algae", "_blank")
         return true
     }
-    if (egg === "nice") {
-        console.log(process.env.nice)
+    if (egg === "us") {
+        window.open("https://www.upgraded-disco.vercel.app/us")
+        return true
     }
 }
