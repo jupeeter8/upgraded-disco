@@ -28,7 +28,7 @@ export async function isEgg(egg: string, UserID: string) {
         return true
     }
     if (egg === "us") {
-        window.open("https://www.upgraded-disco.vercel.app/us")
+        window.open("https://upgraded-disco.vercel.app/us")
         return true
     }
 }
