@@ -60,68 +60,69 @@
     }
 </script>
 
-<body style="--main-accent-color: {themeVal.color}" transition:fade>
-    <div class="layout">
-        <div class="header">
-            <!-- <h1>UNNECESSARY BEEPS</h1>
-            <p>.._ _. _.. . ._. ._.. .. _. .</p> -->
-            <div class="img">
-                <img src="/nice.svg" alt="UNNECESSARY BEEPS" />
-            </div>
-        </div>
-        <div class="landing">
-            <div class="info">
-                {#if isDDay}
-                    <p id="fact-txt">
-                        Happy {year - 2000}{suffix} Birthday Bhu1!
-                    </p>
-                {:else}
-                    <p id="fact-txt">
-                        85% of plant life is found in oceans. You only have 15%
-                        to take care of.
-                    </p>
-                {/if}
-                <p id="cringe-txt">Made with ❤️ By Anirudh</p>
-                <div class="input-field">
-                    <input
-                        class="inp-f"
-                        type="text"
-                        name="name-field"
-                        id="name-field"
-                        placeholder="Name"
-                        bind:value={username}
-                    />
-                    <input
-                        class="inp-f"
-                        type="password"
-                        name="secret-field"
-                        id="secret-field"
-                        placeholder="Secret"
-                        bind:value={password}
-                    />
-                </div>
-            </div>
-            <div class="img-holder">
-                <img
-                    src={themeVal.path}
-                    alt="pink"
-                    on:click={login}
-                    loading="eager"
-                    on:keypress={() => {}}
-                />
-
-                <center
-                    ><a href={themeVal.link} target="_blank" rel="noreferrer"
-                        ><p>{themeVal.name} by {themeVal.artist}</p></a
-                    ></center
-                >
-            </div>
+<div
+    class="layout"
+    style="--main-accent-color: {themeVal.color}"
+    transition:fade
+>
+    <div class="header">
+        <div class="img">
+            <img src="/nice.svg" alt="UNNECESSARY BEEPS" />
         </div>
     </div>
-    {#if isDDay === true}
-        <Ballon />
-    {/if}
-</body>
+
+    <div class="landing">
+        <div class="info">
+            {#if isDDay}
+                <p id="fact-txt">
+                    Happy {year - 2000}{suffix} Birthday Bhu1!
+                </p>
+            {:else}
+                <p id="fact-txt">
+                    85% of plant life is found in oceans. You only have 15% to
+                    take care of.
+                </p>
+            {/if}
+            <p id="cringe-txt">Made with ❤️ By Anirudh</p>
+            <div class="input-field">
+                <input
+                    class="inp-f"
+                    type="text"
+                    name="name-field"
+                    id="name-field"
+                    placeholder="Name"
+                    bind:value={username}
+                />
+                <input
+                    class="inp-f"
+                    type="password"
+                    name="secret-field"
+                    id="secret-field"
+                    placeholder="Secret"
+                    bind:value={password}
+                />
+            </div>
+        </div>
+        <div class="img-holder">
+            <img
+                src={themeVal.path}
+                alt="pink"
+                on:click={login}
+                loading="eager"
+                on:keypress={() => {}}
+            />
+
+            <center
+                ><a href={themeVal.link} target="_blank" rel="noreferrer"
+                    ><p>{themeVal.name} by {themeVal.artist}</p></a
+                ></center
+            >
+        </div>
+    </div>
+</div>
+{#if isDDay === true}
+    <Ballon />
+{/if}
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&family=Sacramento&family=VT323&display=swap");
@@ -135,16 +136,13 @@
     :global(body) {
         margin: 0;
         padding: 0;
+        background-color: var(--main-bg-color);
     }
 
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
-
-    body {
-        background-color: var(--main-bg-color);
     }
 
     .layout {
@@ -264,5 +262,93 @@
     a {
         color: var(--secondary-tet-color);
         text-decoration: none;
+    }
+    @media screen and (max-width: 768px) {
+        .layout {
+            width: 100vw;
+            height: 100vh;
+            margin-left: 0;
+            margin-right: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-left: 1em;
+            padding-right: 1em;
+            padding-top: 2em;
+        }
+
+        .header {
+            margin-bottom: 1.5em;
+            font-size: 2em;
+        }
+        .img {
+            width: fit-content;
+            height: fit-content;
+        }
+        .img img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .landing {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .info {
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            margin-top: 2em;
+        }
+        #fact-txt {
+            font-family: "Sacramento", cursive;
+            font-size: 2em;
+            margin-bottom: 0.5rem;
+            color: var(--main-accent-color);
+            text-align: center;
+        }
+        #cringe-txt {
+            font-family: "VT323", monospace;
+            font-size: 1em;
+            margin-bottom: 3rem;
+            color: var(--secondary-tet-color);
+            width: 50%;
+            text-align: center;
+            width: 100%;
+        }
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .inp-f {
+            background: none;
+            color: var(--main-accent-color);
+            font-family: "VT323", monospace;
+            border: 3px dashed black;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin: 0;
+            width: 75%;
+            margin-bottom: 2em;
+            font-size: 1em;
+        }
+        .img-holder {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            padding: 2em;
+        }
+        .img-holder img {
+            height: calc(100% - 10%);
+            /* height: 100%; */
+            width: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
     }
 </style>
