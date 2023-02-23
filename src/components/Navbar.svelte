@@ -68,4 +68,18 @@
     .nav-btn:hover {
         cursor: pointer;
     }
+
+    @media screen and (max-width: 768px) {
+        .nav {
+            width: 75%;
+            flex-grow: 0;
+            margin: 0;
+            padding-top: 10em;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .nav-border {
+            width: 100%;
+        }
+    }
 </style>
