@@ -12,7 +12,7 @@
         orderBy,
         onSnapshot,
     } from "../../service/messages";
-    import { onAuthStateChange } from "../../service/firebase";
+    import { auth, onAuthStateChange } from "../../service/firebase";
 
     const mainColour = localStorage.getItem("colour");
 
@@ -21,11 +21,6 @@
             localStorage.clear();
             goto("/");
         } else {
-            const loginTime = localStorage.getItem("loginTime");
-            if (Date.now() - loginTime > 3600000) {
-                localStorage.clear();
-                auth.signOut();
-            }
             localStorage.setItem("user", user.uid);
         }
     });
@@ -78,6 +73,20 @@
             mode = true;
             for (let i = 0; i < messages.length; i++) {
                 messages[i].text = trans.toEnglish(messages[i].text);
+            }
+        }
+    }
+
+    function lastLogin() {
+        const now = Date.now();
+        const loginTime = localStorage.getItem("loginTime");
+        console.log(loginTime);
+        if (loginTime) {
+            const diff = now - loginTime;
+            if (diff > 60000) {
+                localStorage.clear();
+                auth.signOut();
+                goto("/");
             }
         }
     }
