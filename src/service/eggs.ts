@@ -1,5 +1,5 @@
 import { doc, db, updateDoc } from "./messages"
-let eggs = { "6049sex57~`shit": "wall" }
+let eggs = { "6049sex57~`shit": "wall", "rdr": true, "alge": "alge", }
 
 
 export async function isEgg(egg: string, UserID: string) {
@@ -14,5 +14,20 @@ export async function isEgg(egg: string, UserID: string) {
         await updateDoc(docRef, { wall: true })
         localStorage.setItem("foundWall", "true")
         return true
+    }
+    if (eggs[egg] === true) {
+        window.open("https://www.youtube.com/watch?v=hAdZPnxINQw", "_blank")
+        return true
+    }
+    if (egg.includes("last")) {
+        window.open("https://www.youtube.com/watch?v=WoxFRRf9DJM", "_blank")
+        return true
+    }
+    if (egg === "algae") {
+        window.open("https://en.wikipedia.org/wiki/Algae", "_blank")
+        return true
+    }
+    if (egg === "nice") {
+        console.log(process.env.nice)
     }
 }
