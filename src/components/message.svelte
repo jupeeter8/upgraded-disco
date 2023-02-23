@@ -72,13 +72,15 @@
         <p style={modalBody} id="modal-msg">
             {msg.innerHTML}
         </p>
-        <span
-            class="material-symbols-outlined"
-            on:click={playMorse}
-            on:keyup={() => {}}
-        >
-            play_arrow
-        </span>
+        {#if !mode}
+            <span
+                class="material-symbols-outlined"
+                on:click={playMorse}
+                on:keyup={() => {}}
+            >
+                play_arrow
+            </span>
+        {/if}
     </div>
 {:else}<div />{/if}
 <div class="msg-f" on:click={showdata} on:keypress={() => {}}>
@@ -111,8 +113,8 @@
         justify-content: space-around;
         padding-left: 1em;
         padding-right: 1em;
-        padding-top: 0.5em;
-        margin-bottom: 0.5em;
+        height: 2.5em;
+        /* margin-bottom: 0.5em; */
     }
     .msg-content {
         font-size: 2.3rem;
