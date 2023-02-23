@@ -44,10 +44,19 @@
     let time = new Date(new Date().getTime());
     const date = time.getDate();
     const month = time.getMonth() + 1;
+    const year = time.getFullYear();
+    let suffix = "th";
     let isDDay = false;
     // check if date is 28 and month is 2
     if (date === 28 && month === 2) {
         isDDay = true;
+        if (year % 10 === 1) {
+            suffix = "st";
+        } else if (year % 10 === 2) {
+            suffix = "nd";
+        } else if (year % 10 === 3) {
+            suffix = "rd";
+        }
     }
 </script>
 
@@ -63,7 +72,9 @@
         <div class="landing">
             <div class="info">
                 {#if isDDay}
-                    <p id="fact-txt">Happy Birthday Bhu1!</p>
+                    <p id="fact-txt">
+                        Happy {year - 2000}{suffix} Birthday Bhu1!
+                    </p>
                 {:else}
                     <p id="fact-txt">
                         85% of plant life is found in oceans. You only have 15%
