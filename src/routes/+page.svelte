@@ -63,7 +63,7 @@
         <div class="landing">
             <div class="info">
                 {#if isDDay}
-                    <p id="fact-txt">Happy Birthday Bh1!</p>
+                    <p id="fact-txt">Happy Birthday Bhu1!</p>
                 {:else}
                     <p id="fact-txt">
                         85% of plant life is found in oceans. You only have 15%
@@ -107,7 +107,7 @@
             </div>
         </div>
     </div>
-    {#if isDDay}
+    {#if isDDay === true}
         <Ballon />
     {/if}
 </body>
