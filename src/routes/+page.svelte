@@ -40,6 +40,12 @@
             console.error("Login failed");
         }
     };
+    let time = new Date(new Date().getTime());
+    const date = time.toLocaleDateString();
+    let isDDay = false;
+    if (date.startsWith("28/2") || date.startsWith("28/02")) {
+        isDDay = true;
+    }
 </script>
 
 <body style="--main-accent-color: {themeVal.color}" transition:fade>
@@ -50,10 +56,14 @@
         </div>
         <div class="landing">
             <div class="info">
-                <p id="fact-txt">
-                    85% of plant life is found in oceans. You only have 15% to
-                    take care of.
-                </p>
+                {#if isDDay}
+                    <p id="fact-txt">Happy Birthday Bh1!</p>
+                {:else}
+                    <p id="fact-txt">
+                        85% of plant life is found in oceans. You only have 15%
+                        to take care of.
+                    </p>
+                {/if}
                 <p id="cringe-txt">Made with ❤️ By Anirudh</p>
                 <div class="input-field">
                     <input
