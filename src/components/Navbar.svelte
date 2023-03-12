@@ -1,12 +1,8 @@
 <script>
     import { goto } from "$app/navigation";
-    import { logout } from "../service/firebase";
-
-    const signOut = async () => {
-        await logout();
-    };
     const inbox = () => goto("/inbox");
     const navHome = () => goto("/home");
+    export let foundWall;
 </script>
 
 <div class="nav">
@@ -20,15 +16,13 @@
                 radio_button_checked
             </span>
         </div>
-        <div class="nav-btn">
-            <span
-                class="material-symbols-outlined"
-                on:click={signOut}
-                on:keypress={() => {}}
-            >
-                view_kanban
-            </span>
-        </div>
+        {#if foundWall === "true"}
+            <div class="nav-btn">
+                <span class="material-symbols-outlined" on:keypress={() => {}}>
+                    view_kanban
+                </span>
+            </div>
+        {/if}
         <div class="nav-btn">
             <span
                 class="material-symbols-outlined"
@@ -73,5 +67,19 @@
     }
     .nav-btn:hover {
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+        .nav {
+            width: 75%;
+            flex-grow: 0;
+            margin: 0;
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .nav-border {
+            width: 100%;
+        }
     }
 </style>
